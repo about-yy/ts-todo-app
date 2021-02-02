@@ -4,15 +4,16 @@ import { TaskService } from './TaskServices';
 
 export class TaskController {
     private router: express.Router;
-    private service: CrudService<any, any>;
+    private service: CrudService;
     constructor(){
         this.router = express.Router();
         this.service = new TaskService();
     }
 
     private regist(request: express.Request, response: express.Response){
-        response.send(this.service.create());
-        response.send(request.url);
+        let body: string = this.service.create() + "<br>";
+        body += request.url;
+        response.send(body);
     }
     private update(request: express.Request, response: express.Response){
         this.service.update();

@@ -1,7 +1,21 @@
 import { CrudService } from "../common/CrudService";
 
-export class TaskService extends CrudService<any, any>{
+export class TaskService implements CrudService{
     constructor(){
-        super();
+    }
+    public create() {
+        throw new Error("Method not implemented.");
+    }
+    public list() {
+        throw new Error("Method not implemented.");
+    }
+    public find() {
+        throw new Error("Method not implemented.");
+    }
+    public update() {
+        throw new Error("Method not implemented.");
+    }
+    public delete() {
+        throw new Error("Method not implemented.");
     }
 }
