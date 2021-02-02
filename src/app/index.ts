@@ -25,7 +25,7 @@ class Server{
         indexRouter.get("/", (request: express.Request,  response: express.Response)=>{
             response.send("hello");
         });
-        
+
         this.app.use(indexRouter);
     }
 
