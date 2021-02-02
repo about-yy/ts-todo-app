@@ -1,5 +1,6 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
+import { TaskController } from './tasks/TaskController';
 dotenv.config();
 
 class Server{
@@ -18,14 +19,14 @@ class Server{
 
     }
 
-
     // ルーティング設定
     private route(){
         const indexRouter = express.Router();
         indexRouter.get("/", (request: express.Request,  response: express.Response)=>{
             response.send("hello");
         });
-
+        const taskController = new TaskController();
+        taskController.route(this.app);
         this.app.use(indexRouter);
     }
 

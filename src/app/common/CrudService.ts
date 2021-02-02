@@ -1,9 +1,9 @@
-class CrudService<Id, Model>{
+export class CrudService<Id, Model>{
     constructor(){
         
     }
-    public create(): Id|void{
-
+    public create(): Id|any{
+        return "create";
     }
     
     public list(): Model|void{

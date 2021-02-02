@@ -1,20 +1,17 @@
 import express, { request } from 'express';
+import { CrudService } from '../common/CrudService';
+import { TaskService } from './TaskServices';
 
-class TaskController {
+export class TaskController {
     private router: express.Router;
     private service: CrudService<any, any>;
     constructor(){
         this.router = express.Router();
         this.service = new TaskService();
-        this.router.get('/regist', this.regist);
-        this.router.get('/update', this.update);
-        this.router.get('/list', this.list);
-        this.router.get('/find', this.find);
-        this.router.get('/delete', this.delete);
     }
 
     private regist(request: express.Request, response: express.Response){
-        this.service.create();
+        response.send(this.service.create());
         response.send(request.url);
     }
     private update(request: express.Request, response: express.Response){
@@ -34,4 +31,12 @@ class TaskController {
         response.send(request.url);
     }
 
+    public route(app: express.Express){
+        this.router.get('/regist', (req, res)=>this.regist(req, res));
+        this.router.get('/update', (req, res)=>this.update(req, res));
+        this.router.get('/list', (req, res)=>this.list(req, res));
+        this.router.get('/find', (req, res)=>this.find(req, res));
+        this.router.get('/delete', (req, res)=>this.delete(req, res));
+        return app.use("/task", this.router);
+    }
 }
