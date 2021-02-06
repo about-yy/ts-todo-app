@@ -10,22 +10,21 @@ export class Task{
     updated_at: Date;
     deleted_at: Date|null;
 
-    constructor(id: number|null, name: string, state: number|null){
-        if(typeof id == "number"){
-            this.id = id; 
-        } else {
-            // TODO 新規ID 採番処理を追加する
-            this.id = 0;
-        }
-        if(typeof state == "number") {
-            this.status = state;
-        } else {
-            this.status = Task.STATE_NOTE;
-        }
+    constructor(id: number, name: string, state: number, date: Date){
+        this.id = id; 
+        this.status = state;
         this.name = name;
-        this.created_at = new Date();
-        this.updated_at = this.created_at;
+        this.created_at = date;
+        this.updated_at = date;
         this.deleted_at = null;
+    }
+
+    /**
+     * モデルを一意に特定する連想配列を返す
+     * @return Object {key: value}
+     */
+    public getId(){
+        return {"id": this.id};
     }
 
 }
