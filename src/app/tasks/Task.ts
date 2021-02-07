@@ -3,28 +3,39 @@ export class Task{
     static STATE_PLAN = 1;    // 計画を立てた
     static STATE_DONE = 2;    // 実施済み
 
-    id: number;
-    name:string;
-    status: number;
-    created_at: Date;
-    updated_at: Date;
-    deleted_at: Date|null;
+    id!: number | null;
+    name!: string;
+    status!: number;
+    created_at!: Date;
+    updated_at!: Date;
+    deleted_at!: Date | null;
 
-    constructor(id: number, name: string, state: number, date: Date){
-        this.id = id; 
-        this.status = state;
-        this.name = name;
-        this.created_at = date;
-        this.updated_at = date;
-        this.deleted_at = null;
+    constructor(taskRecord: {[P in keyof Task]: string});
+    constructor(name: string, state: number, date: Date);
+    constructor(arg1: {[P in keyof Task]: string} | string , state?: number, date?: Date){
+        if(typeof arg1 == "object"){
+            const taskRecord = arg1;
+            this.id = parseInt(taskRecord.id);
+            this.name = taskRecord.name;
+            this.status = parseInt(taskRecord.status);
+            this.created_at = new Date(taskRecord.created_at);
+            this.updated_at = new Date(taskRecord.updated_at);
+            this.deleted_at = new Date(taskRecord.deleted_at);
+        } else if(typeof arg1 == "string" && state != null && date != null){
+            const name = arg1;
+            this.id = null;
+            this.name = name;
+            this.status = state;
+            this.created_at = date;
+            this.updated_at = date;
+            this.deleted_at = null;
+        }
     }
-
-    /**
-     * モデルを一意に特定する連想配列を返す
-     * @return Object {key: value}
-     */
     public getId(){
-        return {"id": this.id};
+        return this.id;
     }
-
+    public getFields(): {[P in keyof Task]?: Task[P] } {
+        return Object.assign({}, this);
+    }
 }
+

@@ -1,6 +1,7 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import { TaskController } from './tasks/TaskController';
+
 dotenv.config();
 
 class Server{

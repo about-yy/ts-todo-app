@@ -1,7 +1,7 @@
-export interface CrudRepository<Entity>{
+export interface CrudRepository<Id, Entity>{
     create(entity: Entity): any;
     list(): any;
-    find(): any;
+    find(id: Id): any;
     update(): any;
     delete(): any;
 }
