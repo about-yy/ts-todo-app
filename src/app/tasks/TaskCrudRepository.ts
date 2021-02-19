@@ -1,10 +1,10 @@
-import { CrudRepository } from "../common/CrudRepository";
+import { CrudRepositoryInterface } from "../common/CrudRepositoryInterface";
 import { Task } from "./Task";
 import pg, { QueryResult } from "pg";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-export class TaskRepository implements CrudRepository<number, Task>{
+export class TaskRepository implements CrudRepositoryInterface<number, Task>{
     private client: pg.Client;
     constructor(){
         const sslmode = (process.env.SSL_MODE=="true");
@@ -18,7 +18,7 @@ export class TaskRepository implements CrudRepository<number, Task>{
 
 
     /**
-     * タスクをDBに登録する処理
+     * タスク登録
      * @param task 
      */
     async create(task:Task): Promise<number>{
@@ -30,14 +30,15 @@ export class TaskRepository implements CrudRepository<number, Task>{
             const res = await this.client.query(sql, Object.values(fields));
             return res.rows[0].id;
         } catch (error) {
-            console.error(error);            
             throw error;
         }
     }
-    list() {
+
+    async list(offset: number, limit: number): Promise<Array<Task>> {
         throw new Error("Method not implemented.");
     }
-    async find(taskId: number) {
+
+    async find(taskId: number):Promise<Task> {
         try {
             const sql = "select * from task where id = $1";
             const values = [taskId];
@@ -45,14 +46,13 @@ export class TaskRepository implements CrudRepository<number, Task>{
             const task = new Task(res.rows[0]);
             return task;
         } catch(error){
-            console.error(error);
             throw error;
         }
     }
-    update() {
+    async update(task: Task): Promise<Task> {
         throw new Error("Method not implemented.");
     }
-    delete() {
+    async delete(task: Task): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
 

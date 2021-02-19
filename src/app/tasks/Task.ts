@@ -31,6 +31,7 @@ export class Task{
             this.deleted_at = null;
         }
     }
+    
     public getId(){
         return this.id;
     }
