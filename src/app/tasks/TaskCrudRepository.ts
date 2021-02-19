@@ -16,7 +16,6 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
         this.client.connect();
     }
 
-
     /**
      * タスク登録
      * @param task 
@@ -50,10 +49,40 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
         }
     }
     async update(task: Task): Promise<Task> {
-        throw new Error("Method not implemented.");
+        try{
+            const sql = "update task set name = $2, status = $3, updated_at = now() where id = $1 RETURNING *";
+            const fields = task.getFields();
+            delete fields.created_at;
+            delete fields.updated_at;
+            delete fields.deleted_at;
+            const res: QueryResult = await this.client.query(sql, Object.values(fields));
+            const updated = new Task(res.rows[0]);
+            return updated;
+        } catch (error){
+            throw error;
+        }
     }
     async delete(task: Task): Promise<boolean> {
-        throw new Error("Method not implemented.");
+        try {
+            const sql = "update task set deleted_at = now() where id = $1 RETURNING *";
+            const res: QueryResult = await this.client.query(sql, [task.id]);
+            return res.rows[0].id;
+        } catch (error){
+            throw error;
+        }
     }
 
+
+    /**
+     * TODO テスト用のため、削除する
+     */
+    async deleteAll(){
+        try {
+            const sql = "delete from task";
+            const res: QueryResult = await this.client.query(sql);
+            return true;
+        } catch (error){
+            throw error;
+        }
+    }
 }

@@ -14,14 +14,14 @@ describe("Task Repository Tests", ()=>{
     })
 
     test("find created task", async ()=>{
-        expect((await repository.find(22)).name).toBe("test task");
+        expect((await repository.find(24)).name).toBe("test task"||"test task updated");
     })
 
     test("update find task", async()=>{
         const task = await repository.find(22);
         task.name = "test task updated";
         const updated = await repository.update(task);
-        expect(updated).toStrictEqual(task);
+        expect(updated.id).toBe(task.id);
     })
 
     test("list all task", async()=>{
@@ -34,9 +34,12 @@ describe("Task Repository Tests", ()=>{
 
     test("delete find task", async()=>{
         const task = await repository.find(21);
-        expect(await repository.delete(task)).toBe(true);
+        expect((await repository.delete(task))).toBe(21);
     })
 
+    test("delete all", async()=>{
+        expect(await repository.deleteAll()).toBe(true);
+    })
 });
 
 
