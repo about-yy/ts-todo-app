@@ -33,10 +33,19 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
         }
     }
 
+    /**
+     * 一覧取得
+     * @param offset 
+     * @param limit 
+     */
     async list(offset: number, limit: number): Promise<Array<Task>> {
         throw new Error("Method not implemented.");
     }
 
+    /**
+     * 詳細取得
+     * @param taskId 
+     */
     async find(taskId: number):Promise<Task> {
         try {
             const sql = "select * from task where id = $1";
@@ -48,6 +57,11 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
             throw error;
         }
     }
+
+    /**
+     * 更新
+     * @param task 
+     */
     async update(task: Task): Promise<Task> {
         try{
             const sql = "update task set name = $2, status = $3, updated_at = now() where id = $1 RETURNING *";
@@ -62,6 +76,11 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
             throw error;
         }
     }
+    
+    /**
+     * 削除
+     * @param task 
+     */
     async delete(task: Task): Promise<boolean> {
         try {
             const sql = "update task set deleted_at = now() where id = $1 RETURNING *";
@@ -79,7 +98,9 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
     async deleteAll(){
         try {
             const sql = "delete from task";
+            const seqReset = "select setval('task_id_seq', 1, false)";
             const res: QueryResult = await this.client.query(sql);
+            const resetRes: QueryResult = await this.client.query(seqReset);
             return true;
         } catch (error){
             throw error;
