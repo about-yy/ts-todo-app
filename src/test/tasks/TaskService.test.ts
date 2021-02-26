@@ -69,7 +69,7 @@ describe("Task Service Crud Test", ()=>{
 
     test("delete", async()=>{
         const task = await repository.find(3);
-        expect((await service.delete(task))).toBe(true);
+        expect((await service.delete(task))).toBe(3);
     })
 });
 
