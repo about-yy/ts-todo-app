@@ -1,7 +1,10 @@
-export interface ICrudService<T, S, U>{
-    create(form: S): Promise<U>;
-    list(offset: number, limit:number ): Promise<Array<U>>;
-    find(id: T): Promise<U>;
-    update(id: T, from: S): Promise<U>;
+import { ICrudRepository } from "./ICrudRepository";
+
+export interface ICrudService<T, S>{
+    repository: ICrudRepository<T, S>;
+    create(task: S): Promise<T>;
+    list(offset: number, limit:number ): Promise<Array<S>>;
+    find(id: T): Promise<S>;
+    update(id: T, from: S): Promise<S>;
     delete(id: T): Promise<boolean>;
 }
