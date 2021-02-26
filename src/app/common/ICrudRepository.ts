@@ -1,7 +1,7 @@
 export interface ICrudRepository<T, S>{
-    create(S: S): Promise<T>;
+    create(entity: S): Promise<T>;
     list(offset: number, limit: number): Promise<Array<S>>;
-    find(T: T): Promise<S>;
-    update(S: S): Promise<S>;
-    delete(S: S): Promise<boolean>;
+    find(id: T): Promise<S>;
+    update(entity: S): Promise<S>;
+    delete(entity: S): Promise<boolean>;
 }
