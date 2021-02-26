@@ -38,5 +38,18 @@ export class Task{
     public getFields(): {[P in keyof Task]?: Task[P] } {
         return Object.assign({}, this);
     }
+
+    public updateStatus(status: number): boolean{
+        if(status != Task.STATE_NOTE && status != Task.STATE_PLAN && status != Task.STATE_DONE){
+            return false;
+        } else {
+            this.status = status;
+            return true;
+        }
+    }
+
+    public getStatus(){
+        return this.status;
+    }
 }
 
