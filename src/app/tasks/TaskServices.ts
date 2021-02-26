@@ -1,9 +1,13 @@
+import { ICrudRepository } from "../common/ICrudRepository";
 import { ICrudService } from "../common/ICrudService";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 
-export class TaskService implements ICrudService<number, TaskForm, Task>{
-    constructor(){
+export class TaskService implements ICrudService<number, Task>{
+    repository: ICrudRepository<number, Task>;
+
+    constructor(repository: ICrudRepository<number, Task>){
+        this.repository = repository;
     }
 
     /**
@@ -33,6 +37,10 @@ export class TaskService implements ICrudService<number, TaskForm, Task>{
      */
     public async update():Promise<any> {
         throw new Error("Method not implemented.");
+    }
+
+    public async updateStatus(){
+
     }
 
     /**
