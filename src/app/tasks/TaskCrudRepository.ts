@@ -2,18 +2,12 @@ import { CrudRepositoryInterface } from "../common/CrudRepositoryInterface";
 import { Task } from "./Task";
 import pg, { QueryResult } from "pg";
 import * as dotenv from "dotenv";
+import { PostgresDB } from "../common/PostgresDB";
 dotenv.config();
 
-export class TaskRepository implements CrudRepositoryInterface<number, Task>{
-    private client: pg.Client;
+export class TaskRepository extends PostgresDB implements CrudRepositoryInterface<number, Task>{
     constructor(){
-        const sslmode = (process.env.SSL_MODE=="true");
-
-        this.client = new pg.Client({
-            connectionString: process.env.DATABASE_URL,
-            ssl: {rejectUnauthorized: sslmode},
-        });
-        this.client.connect();
+        super();
     }
 
     /**
@@ -105,7 +99,8 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
 
 
     /**
-     * TODO テスト用のため、削除する
+     * すべてのデータを削除する
+     * テスト環境以外では呼び出せないようにする
      */
     async deleteAll(){
         try {
