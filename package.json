@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:serial": "jest --runInBand",
     "dev": "ts-node src/app/index.ts",
     "dev:watch": "ts-node-dev --watch 'src/app/**/*.ts' --respawn src/app/index.ts",
     "snippet:watch": "ts-node-dev --respawn src/app/dev.ts",

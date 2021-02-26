@@ -1,5 +1,5 @@
-import { Task } from "../app/tasks/Task";
-import { TaskRepository } from "../app/tasks/TaskCrudRepository";
+import { Task } from "../../app/tasks/Task";
+import { TaskRepository } from "../../app/tasks/TaskCrudRepository";
 
 const repository = new TaskRepository();
 beforeAll(()=>{
