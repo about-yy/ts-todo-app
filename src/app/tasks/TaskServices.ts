@@ -13,40 +13,45 @@ export class TaskService implements ICrudService<number, Task>{
     /**
      * タスク登録
      */
-    public async create():Promise<any> {
-        
-        throw new Error("Method not implemented.");
+    public async create(task: Task): Promise<number> {
+        return this.repository.create(task);
     }
     
     /**
      * タスク一覧
      */
-    public async list():Promise<any> {
-        throw new Error("Method not implemented.");
+    public async list(offset: number, limit:number ): Promise<Array<Task>> {
+        return this.repository.list(offset, limit);
     }
 
     /**
      * タスク詳細
      */
-    public async find():Promise<any> {
-        throw new Error("Method not implemented.");
+    public async find(id: number):Promise<Task> {
+        return this.repository.find(id);
     }
 
     /**
-     * タスク更新
+     * タスク情報更新
      */
-    public async update():Promise<any> {
-        throw new Error("Method not implemented.");
+    public async update(task: Task): Promise<Task> {
+        return this.repository.update(task);
     }
 
-    public async updateStatus(){
-
+    /**
+     * ステータス更新
+     */
+    public async updateStatus(id: number, status: number): Promise<Task>{
+        const task =  await this.repository.find(id);
+        task.updateStatus(status);
+        const updatedTask = this.repository.update(task);
+        return updatedTask;
     }
 
     /**
      * タスク削除
      */
-    public async delete():Promise<any> {
-        throw new Error("Method not implemented.");
+    public async delete(task:Task):Promise<boolean> {
+        return this.repository.delete(task);
     }
 }
