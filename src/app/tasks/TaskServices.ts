@@ -1,6 +1,6 @@
-import { CrudService } from "../common/CrudService";
+import { ICrudService } from "../common/ICrudService";
 
-export class TaskService implements CrudService{
+export class TaskService implements ICrudService{
     constructor(){
     }
 

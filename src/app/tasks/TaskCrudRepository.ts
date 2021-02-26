@@ -1,10 +1,10 @@
-import { CrudRepositoryInterface } from "../common/CrudRepositoryInterface";
+import { ICrudRepository } from "../common/ICrudRepository";
 import { Task } from "./Task";
 import pg, { QueryResult } from "pg";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-export class TaskRepository implements CrudRepositoryInterface<number, Task>{
+export class TaskRepository implements ICrudRepository<number, Task>{
     private client: pg.Client;
     constructor(){
         const sslmode = (process.env.SSL_MODE=="true");

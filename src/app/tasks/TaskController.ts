@@ -1,5 +1,5 @@
 import express, { request } from 'express';
-import { CrudService } from '../common/CrudService';
+import { ICrudService } from '../common/ICrudService';
 import { TaskService } from './TaskServices';
 
 export class TaskController {
