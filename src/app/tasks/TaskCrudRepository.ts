@@ -39,7 +39,19 @@ export class TaskRepository implements CrudRepositoryInterface<number, Task>{
      * @param limit 
      */
     async list(offset: number, limit: number): Promise<Array<Task>> {
-        throw new Error("Method not implemented.");
+        try {
+            const sql = "select * from task offset $1 limit $2";
+            const values = [offset, limit];
+            const res: QueryResult = await this.client.query(sql, values);
+            const list: Array<Task> = new Array();
+            res.rows.forEach((row)=>{
+                const task = new Task(row);
+                list.push(task);
+            });
+            return list;
+        } catch (error) {
+            throw error;
+        }
     }
 
     /**

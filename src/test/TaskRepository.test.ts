@@ -23,8 +23,6 @@ afterAll(()=>{
 })
 
 describe("Task Repository Tests", ()=>{
-
-   
     test("create new task", async ()=>{
         const task = new Task(
             "test task",
