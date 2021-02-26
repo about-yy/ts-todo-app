@@ -5,6 +5,6 @@ export interface ICrudService<T, S>{
     create(task: S): Promise<T>;
     list(offset: number, limit:number ): Promise<Array<S>>;
     find(id: T): Promise<S>;
-    update(id: T, from: S): Promise<S>;
-    delete(id: T): Promise<boolean>;
+    update(entity: S): Promise<S>;
+    delete(entity: S): Promise<boolean>;
 }
