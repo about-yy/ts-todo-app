@@ -1,5 +1,5 @@
-export interface CrudService{
-    create(): any;
+export interface ICrudService<T, S>{
+    create(): ;
     list(): any;
     find(): any;
     update(): any;
