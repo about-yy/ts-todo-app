@@ -47,7 +47,8 @@ const service = new TaskService(repository);
 
 describe("Task Service Crud Test", ()=>{
     test("create", async ()=>{
-        expect(typeof(await service.create())).toBe("number");
+        const task = new Task("creeated task", Task.STATE_NOTE, new Date());
+        expect(typeof(await service.create(task))).toBe("number");
     });
 
     test("find", async()=>{
