@@ -32,8 +32,8 @@ export class Task{
         }
     }
     
-    public getId(){
-        return this.id;
+    public getId(): number{
+        return this.id ? this.id : 0;
     }
     public getFields(): {[P in keyof Task]?: Task[P] } {
         return Object.assign({}, this);
