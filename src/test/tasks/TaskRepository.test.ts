@@ -1,7 +1,8 @@
+import { PostgresDB } from "../../app/common/PostgresDB";
 import { Task } from "../../app/tasks/Task";
 import { TaskRepository } from "../../app/tasks/TaskCrudRepository";
 
-const repository = new TaskRepository();
+const repository = new TaskRepository(new PostgresDB());
 beforeAll(()=>{
     repository.deleteAll();
 
