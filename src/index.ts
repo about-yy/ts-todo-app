@@ -18,7 +18,7 @@ class Server{
     // ミドルウェア設定
     private middleware(){
         this.app.set("view engine", "pug");
-        this.app.set("views","src/app/views");
+        this.app.set("views","public/views");
     }
 
 
