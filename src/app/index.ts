@@ -17,8 +17,10 @@ class Server{
 
     // ミドルウェア設定
     private middleware(){
-
+        this.app.set("view engine", "pug");
+        this.app.set("views","src/app/views");
     }
+
 
     // ルーティング設定
     private route(){

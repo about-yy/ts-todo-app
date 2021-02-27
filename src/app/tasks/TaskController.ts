@@ -24,8 +24,9 @@ export class TaskController {
         response.send(request.url);
     }
     private find(request: express.Request, response: express.Response){
-        this.service.find();
-        response.send(request.url);
+        // this.service.find();
+        // response.send(request.url);
+        response.render("./hello");
     }
     private delete(request: express.Request, response: express.Response){
         this.service.delete();
