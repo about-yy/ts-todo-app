@@ -1,7 +1,6 @@
 import { ICrudRepository } from "../common/ICrudRepository";
 import { ICrudService } from "../common/ICrudService";
 import { Task } from "./Task";
-import { TaskForm } from "./TaskForm";
 
 export class TaskService implements ICrudService<number, Task>{
     repository: ICrudRepository<number, Task>;

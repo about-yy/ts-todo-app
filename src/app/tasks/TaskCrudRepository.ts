@@ -3,11 +3,14 @@ import { Task } from "./Task";
 import { QueryResult } from "pg";
 import * as dotenv from "dotenv";
 import { PostgresDB } from "../common/PostgresDB";
+import { DBInterface } from "../common/DBInterface";
 dotenv.config();
 
-export class TaskRepository extends PostgresDB implements ICrudRepository<number, Task>{
-    constructor(){
-        super();
+export class TaskRepository implements ICrudRepository<number, Task>{
+
+    database: DBInterface; 
+    constructor(database: DBInterface){
+        this.database = database;
     }
 
     /**
@@ -20,7 +23,7 @@ export class TaskRepository extends PostgresDB implements ICrudRepository<number
             const fields = task.getFields();
             delete fields.id;
             delete fields.deleted_at;
-            const res = await this.client.query(sql, Object.values(fields));
+            const res = await this.database.query(sql, Object.values(fields));
             return res.rows[0].id;
         } catch (error) {
             throw error;
@@ -36,7 +39,7 @@ export class TaskRepository extends PostgresDB implements ICrudRepository<number
         try {
             const sql = "select * from task offset $1 limit $2";
             const values = [offset, limit];
-            const res: QueryResult = await this.client.query(sql, values);
+            const res: QueryResult = await this.database.query(sql, values);
             const list: Array<Task> = new Array();
             res.rows.forEach((row)=>{
                 const task = new Task(row);
@@ -56,7 +59,7 @@ export class TaskRepository extends PostgresDB implements ICrudRepository<number
         try {
             const sql = "select * from task where id = $1";
             const values = [taskId];
-            const res: QueryResult = await this.client.query(sql, values);
+            const res: QueryResult = await this.database.query(sql, values);
             const task = new Task(res.rows[0]);
             return task;
         } catch(error){
@@ -75,7 +78,7 @@ export class TaskRepository extends PostgresDB implements ICrudRepository<number
             delete fields.created_at;
             delete fields.updated_at;
             delete fields.deleted_at;
-            const res: QueryResult = await this.client.query(sql, Object.values(fields));
+            const res: QueryResult = await this.database.query(sql, Object.values(fields));
             const updated = new Task(res.rows[0]);
             return updated;
         } catch (error){
@@ -90,7 +93,7 @@ export class TaskRepository extends PostgresDB implements ICrudRepository<number
     async delete(task: Task): Promise<boolean> {
         try {
             const sql = "update task set deleted_at = now() where id = $1 RETURNING *";
-            const res: QueryResult = await this.client.query(sql, [task.id]);
+            const res: QueryResult = await this.database.query(sql, [task.id]);
             return res.rows[0].id;
         } catch (error){
             throw error;
@@ -106,8 +109,8 @@ export class TaskRepository extends PostgresDB implements ICrudRepository<number
         try {
             const sql = "delete from task";
             const seqReset = "select setval('task_id_seq', 1, false)";
-            const res: QueryResult = await this.client.query(sql);
-            const resetRes: QueryResult = await this.client.query(seqReset);
+            const res: QueryResult = await this.database.query(sql);
+            const resetRes: QueryResult = await this.database.query(seqReset);
             return true;
         } catch (error){
             throw error;
