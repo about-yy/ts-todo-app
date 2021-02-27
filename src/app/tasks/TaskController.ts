@@ -1,13 +1,18 @@
 import express, { request } from 'express';
 import { ICrudService } from '../common/ICrudService';
+import { PostgresDB } from '../common/PostgresDB';
+import { Task } from './Task';
+import { TaskRepository } from './TaskCrudRepository';
 import { TaskService } from './TaskServices';
 
 export class TaskController {
     private router: express.Router;
-    private service: CrudService;
+    private service: ICrudService<number, Task>;
     constructor(){
         this.router = express.Router();
-        this.service = new TaskService();
+        const database = new PostgresDB();
+        const repository = new TaskRepository(database);
+        this.service = new TaskService(repository);
     }
 
     private regist(request: express.Request, response: express.Response){
