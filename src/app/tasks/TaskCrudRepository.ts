@@ -1,11 +1,11 @@
-import { CrudRepositoryInterface } from "../common/CrudRepositoryInterface";
+import { ICrudRepository } from "../common/ICrudRepository";
 import { Task } from "./Task";
 import pg, { QueryResult } from "pg";
 import * as dotenv from "dotenv";
 import { PostgresDB } from "../common/PostgresDB";
 dotenv.config();
 
-export class TaskRepository extends PostgresDB implements CrudRepositoryInterface<number, Task>{
+export class TaskRepository extends PostgresDB implements ICrudRepository<number, Task>{
     constructor(){
         super();
     }
