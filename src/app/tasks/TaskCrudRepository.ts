@@ -2,7 +2,6 @@ import { ICrudRepository } from "../common/ICrudRepository";
 import { Task } from "./Task";
 import { QueryResult } from "pg";
 import * as dotenv from "dotenv";
-import { PostgresDB } from "../common/PostgresDB";
 import { DBInterface } from "../common/DBInterface";
 dotenv.config();
 
