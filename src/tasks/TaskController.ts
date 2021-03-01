@@ -16,7 +16,7 @@ export class TaskController {
     }
 
     private index(request: express.Request, response: express.Response){
-        return response.render("task");
+        return response.render("task/index");
     }
 
     private regist(request: express.Request, response: express.Response){

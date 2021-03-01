@@ -1,0 +1,14 @@
+extends ../layout.pug
+block variable
+    - bodyClass = "task"
+block styles 
+    link(rel="stylesheet", href="/css/task.css")
+block title 
+    |PRIVATE TASK MANAGER
+block body
+    header.header 
+        h1 private task manager
+    .grid-container.task
+        include ./nav.pug
+        include ./list.pug
+    footer.center.block.text フッター

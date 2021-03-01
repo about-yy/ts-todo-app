@@ -1,0 +1,42 @@
+/**
+ * task 配下のCSS
+ */ 
+body.task {
+    width: 800px;
+    margin: 20px auto 20px auto;
+}
+.task .flex-item {
+    height: 1.7em;
+}
+
+.grid-container.task {
+    grid-template-rows: 1fr;
+    grid-template-columns: 20% 5% 60% 15%;
+    grid-template-areas: 
+        "nav ... content ...";
+}
+
+
+/**
+ * task/list.pug
+ */
+.task_list {
+    grid-area: "content";
+    width: 600px;
+}
+
+.task_list .flex-item {
+    background-color: lawngreen;
+    width: 450px;
+}
+
+
+/**
+ * task/nav.pug
+ */
+ .task_nav {
+    background-color: lightcoral;
+    grid-area: "nav";
+}
+
+
