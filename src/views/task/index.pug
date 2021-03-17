@@ -8,17 +8,18 @@ block title
 block body
     #ts-todo-app
         .head-banner 
-            | banner
-        header
-            h2 タスク一覧
-        .task-list 
-            - for (let i=0; i<10; i++)
-                .task-title 
-                    p task name 
-                .task-control-button
-                    button(type="submit") 詳細・編集
-                    button(type="submit") 更新
-                    button(type="submit") 削除
+            p ts-todo-app
+        .content 
+            header
+                h2 タスク一覧
+            .task-list 
+                - for (let i=0; i<10; i++)
+                    .task-content 
+                        p.task-title task name 
+                        .task-control-group
+                            button(type="submit") 日付を追加
+                            button(type="submit") 完了
+                            button(type="submit") 破棄
         .task-input-form 
             label(for="name")
             input(type="text", name="name")

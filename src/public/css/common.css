@@ -6,10 +6,3 @@
     z-index: 2;
     top: 0;
 }
-.center.block {
-    margin-left: auto;
-    margin-top: auto;
-}
-.center.text {
-    text-align: center;
-}
