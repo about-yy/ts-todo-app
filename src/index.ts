@@ -17,8 +17,10 @@ class Server{
 
     // ミドルウェア設定
     private middleware(){
-
+        this.app.set("view engine", "pug");
+        this.app.set("views","src/views");
     }
+
 
     // ルーティング設定
     private route(){
@@ -29,6 +31,8 @@ class Server{
         const taskController = new TaskController();
         taskController.route(this.app);
         this.app.use(indexRouter);
+        this.app.use(express.static('src/public'));
+
     }
 
     // エラーハンドリング設定

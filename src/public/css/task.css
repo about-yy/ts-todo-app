@@ -1,0 +1,91 @@
+#ts-todo-app {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#ts-todo-app > .head-banner {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: lightcoral;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    overflow: hidden;
+
+}
+
+#ts-todo-app > .head-banner p{
+    padding: 2px 5px 2px 5px;
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    height: 44px;
+}
+
+#ts-todo-app .content {
+    margin:auto;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#ts-todo-app header {
+    display: block;
+    min-width: 80%;
+    margin-left: 1em;
+}
+
+#ts-todo-app .task-list {
+    display: block;
+    width: 80%;
+    margin-left: 2em;
+}
+#ts-todo-app .task-list > .task-content {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #777777 solid 2px;
+    padding: 8px 8px 2px 4px ;
+    margin-top: 20px;
+}
+#ts-todo-app .task-list .task-control-group button {
+    margin-left: 4px;
+    min-width: 80px;
+    min-height: 50px;
+
+}
+#ts-todo-app .task-input-form {
+    display: flex;
+    margin: auto;
+    margin-top: 30px;
+    width: 80%;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    background-color: inherit;
+}
+
+
+#ts-todo-app .task-input-form input[type="text"]{
+    font-size: 18px;
+    margin: 0px;
+    padding-left: 1%;
+    width: 68%;
+    height: 70%;
+}
+
+#ts-todo-app .task-input-form button{
+    margin: 0px;
+    margin-left: 3px;
+    padding: 0px;
+    width: 80px;
+    height: 70%;
+}
+
+#ts-todo-app footer {
+    display: flex;
+    margin: auto;
+    margin-top: 200px;
+    justify-content: center;
+}
