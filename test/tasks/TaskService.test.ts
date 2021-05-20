@@ -1,9 +1,10 @@
+import { PostgresDB } from "../../app/common/PostgresDB";
 import { Task } from "../../app/tasks/Task";
 import { TaskRepository } from "../../app/tasks/TaskCrudRepository";
 import { TaskForm } from "../../app/tasks/TaskForm";
 import { TaskService } from "../../app/tasks/TaskServices";
 
-const repository = new TaskRepository();
+const repository = new TaskRepository(new PostgresDB());
 
 
 
