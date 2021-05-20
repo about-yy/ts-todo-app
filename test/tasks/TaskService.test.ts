@@ -1,8 +1,8 @@
-import { PostgresDB } from "../../app/common/PostgresDB";
-import { Task } from "../../app/tasks/Task";
-import { TaskRepository } from "../../app/tasks/TaskCrudRepository";
-import { TaskForm } from "../../app/tasks/TaskForm";
-import { TaskService } from "../../app/tasks/TaskServices";
+import { PostgresDB } from "../../src/common/PostgresDB";
+import { Task } from "../../src/tasks/Task";
+import { TaskRepository } from "../../src/tasks/TaskCrudRepository";
+import { TaskForm } from "../../src/tasks/TaskForm";
+import { TaskService } from "../../src/tasks/TaskServices";
 
 const repository = new TaskRepository(new PostgresDB());
 
