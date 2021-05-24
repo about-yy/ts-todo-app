@@ -13,7 +13,7 @@
     "snippet:watch": "ts-node-dev --respawn src/dev.ts",
     "clean": "rimraf dist/*",
     "tsc": "tsc",
-    "build": "build",
+    "build": "tsc",
     "start": "node ."
   },
   "repository": {
