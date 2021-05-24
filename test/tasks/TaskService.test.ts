@@ -1,12 +1,9 @@
-import { PostgresDB } from "../../app/common/PostgresDB";
-import { Task } from "../../app/tasks/Task";
-import { TaskRepository } from "../../app/tasks/TaskCrudRepository";
-import { TaskForm } from "../../app/tasks/TaskForm";
-import { TaskService } from "../../app/tasks/TaskServices";
+import { PostgresDB } from "../../src/common/PostgresDB";
+import { Task } from "../../src/tasks/Task";
+import { TaskRepository } from "../../src/tasks/TaskCrudRepository";
+import { TaskService } from "../../src/tasks/TaskServices";
 
 const repository = new TaskRepository(new PostgresDB());
-
-
 
 beforeAll(()=>{
     // テストデータ
@@ -60,18 +57,18 @@ describe("Task Service Crud Test", ()=>{
         const taskList:Array<Task> = await service.list(0, 5);
         expect(taskList.length).toBe(5);
         expect(taskList[0].name).toBe("test task1");
-    })
+    });
 
     test("update", async()=>{
         const task = await repository.find(2);
         task.name = "updated task2";
         expect((await service.update(task)).name).toBe("updated task2");
-    })
+    });
 
     test("delete", async()=>{
         const task = await repository.find(3);
-        expect((await service.delete(task))).toBe(3);
-    })
+        expect((await service.delete(task.getId()))).toBe(3);
+    });
 });
 
 describe("task service's unique process test", ()=>{
@@ -83,6 +80,5 @@ describe("task service's unique process test", ()=>{
 });
 
 afterAll(()=>{
-    // テストデータを削除
     repository.deleteAll();
 });

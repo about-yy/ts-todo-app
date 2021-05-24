@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { NextFunction } from 'express';
 import * as dotenv from 'dotenv';
 import { TaskController } from './tasks/TaskController';
+import "express-async-errors";
 
 dotenv.config();
 
@@ -11,7 +12,6 @@ class Server{
         this.app = express();
         this.middleware();
         this.route();
-        this.errorHandle();
         this.app.listen(process.env.PORT);
     }
 
@@ -19,25 +19,22 @@ class Server{
     private middleware(){
         this.app.set("view engine", "pug");
         this.app.set("views","src/views");
+        this.app.use(express.urlencoded({extended: true}));
+        this.app.use(express.json());
     }
 
 
     // ルーティング設定
     private route(){
-        const indexRouter = express.Router();
-        indexRouter.get("/", (request: express.Request,  response: express.Response)=>{
-            response.send("hello");
-        });
         const taskController = new TaskController();
         taskController.route(this.app);
-        this.app.use(indexRouter);
-        this.app.use(express.static('src/public'));
-
+        this.app.use(this.errorHandler);
     }
 
     // エラーハンドリング設定
-    private errorHandle(){
-
+    private errorHandler(err: Error, req:express.Request, res: express.Response, next: NextFunction){
+        res.status(500);
+        res.send(err.message);
     }
 
 }

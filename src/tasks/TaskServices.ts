@@ -50,7 +50,8 @@ export class TaskService implements ICrudService<number, Task>{
     /**
      * タスク削除
      */
-    public async delete(task:Task):Promise<boolean> {
+    public async delete(id: number):Promise<boolean> {
+        const task: Task = await this.repository.find(id);
         return this.repository.delete(task);
     }
 }

@@ -1,3 +1,5 @@
+import { runInThisContext } from "vm";
+
 export class Task{
     static STATE_NOTE = 0;    // 上げただけ
     static STATE_PLAN = 1;    // 計画を立てた
@@ -39,17 +41,29 @@ export class Task{
         return Object.assign({}, this);
     }
 
-    public updateStatus(status: number): boolean{
+    public updateStatus(status: number): void{
         if(status != Task.STATE_NOTE && status != Task.STATE_PLAN && status != Task.STATE_DONE){
-            return false;
+            throw new Error("Task Status should Be TaskState");
         } else {
             this.status = status;
-            return true;
         }
     }
 
     public getStatus(){
         return this.status;
     }
+
+    public getName(): string {
+        return this.name;
+    }
+
+    public setName(name: string): void{
+        if(name != null && name != ""){
+            this.name = name;
+        } else {
+            throw new Error("Task Name is not nullable");
+        }
+    }
+
 }
 
