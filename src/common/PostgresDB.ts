@@ -15,7 +15,7 @@ export class PostgresDB extends Client implements DBInterface{
     }
     async connect(){
         super.connect()
-        setTimeout(()=>this.end(), 50000);
+        setTimeout(()=>this.end(), 500000);
         return ;
     }
 }

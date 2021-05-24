@@ -7,5 +7,5 @@ export interface ICrudService<T, S>{
     list(offset: number, limit:number ): Promise<Array<S>>;
     find(id: T): Promise<S>;
     update(entity: S): Promise<S>;
-    delete(entity: S): Promise<boolean>;
+    delete(id: T): Promise<boolean>;
 }

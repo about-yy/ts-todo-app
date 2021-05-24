@@ -1,0 +1,15 @@
+GET http://localhost:8080/task/list?offset=0&limit=10
+
+###
+POST http://localhost:8080/task/regist
+Content-Type: application/json
+
+{
+    "name": "test"
+}
+
+###
+GET http://localhost:8080/task/find?id=5
+
+###
+GET http://localhost:8080/task/delete?id=5

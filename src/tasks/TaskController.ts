@@ -15,30 +15,47 @@ export class TaskController {
         this.service = new TaskService(repository);
     }
 
-    private index(request: express.Request, response: express.Response){
-        return response.render("task/index");
+    private async regist(request: express.Request, response: express.Response){
+        const name: string = request.body.name as string;
+        const date: Date = new Date();
+        const task: Task = new Task(name, Task.STATE_NOTE, date);
+        const id: number = await this.service.create(task);
+        response.json({"id":id});
     }
+    private async update(request: express.Request, response: express.Response){
+        const name: string = request.body.name as string;
+        const status: number = parseInt(request.body.status as string);
+        const id: number = parseInt(request.body.name as string);
+        
+        const task: Task = await this.service.find(id);
+        task.setName(name);
+        if(!isNaN(status)) task.updateStatus(status);
+        
+        const updatedTask: Task = await this.service.update(task);
 
-    private regist(request: express.Request, response: express.Response){
-        // let body: string = this.service.create() + "<br>";
-        // body += request.url;
-        response.send(request.url);
+        response.json(updatedTask);
     }
-    private update(request: express.Request, response: express.Response){
-        // this.service.update();
-        response.send(request.url);
+    private async list(request: express.Request, response: express.Response){
+        const offset: number = parseInt(request.query.offset as string);
+        const limit: number = parseInt(request.query.limit as string);
+        if(isNaN(offset) || isNaN(limit)){
+            throw new Error("offset or limit is not a number. offset: "+offset+" limit: "+ limit);
+        }
+        response.json(await this.service.list(offset, limit));
     }
-    private list(request: express.Request, response: express.Response){
-        // this.service.list();
-        response.send(request.url);
+    private async find(request: express.Request, response: express.Response){
+        const id: number = parseInt(request.query.id as string);
+        if(isNaN(id)){
+            throw new Error("id is not a number. id: "+id);
+        }
+        response.json(await this.service.find(id));
     }
-    private find(request: express.Request, response: express.Response){
-        // this.service.find();
-        response.send(request.url);
-    }
-    private delete(request: express.Request, response: express.Response){
-        // this.service.delete();
-        response.send(request.url);
+    private async delete(request: express.Request, response: express.Response){
+        const id: number = parseInt(request.query.id as string);
+        if(isNaN(id)){
+            throw new Error("id is not a number. id: "+id);
+        }
+        response.json(await this.service.delete(id));
     }
 
     public route(app: express.Express){
@@ -47,7 +64,6 @@ export class TaskController {
         this.router.get('/list', (req, res)=>this.list(req, res));
         this.router.get('/find', (req, res)=>this.find(req, res));
         this.router.get('/delete', (req, res)=>this.delete(req, res));
-        this.router.get('/',(req, res)=>{this.index(req,res)});
         return app.use("/task", this.router);
     }
 }

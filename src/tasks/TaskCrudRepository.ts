@@ -36,7 +36,7 @@ export class TaskRepository implements ICrudRepository<number, Task>{
      */
     async list(offset: number, limit: number): Promise<Array<Task>> {
         try {
-            const sql = "select * from task offset $1 limit $2";
+            const sql = "select * from task where deleted_at is null offset $1 limit $2";
             const values = [offset, limit];
             const res: QueryResult = await this.database.query(sql, values);
             const list: Array<Task> = new Array();
@@ -56,7 +56,7 @@ export class TaskRepository implements ICrudRepository<number, Task>{
      */
     async find(taskId: number):Promise<Task> {
         try {
-            const sql = "select * from task where id = $1";
+            const sql = "select * from task where id = $1 and deleted_at is null";
             const values = [taskId];
             const res: QueryResult = await this.database.query(sql, values);
             const task = new Task(res.rows[0]);
