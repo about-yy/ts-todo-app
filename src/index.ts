@@ -1,5 +1,6 @@
 import express, { NextFunction } from 'express';
 import * as dotenv from 'dotenv';
+import cors from "cors";
 import { TaskController } from './tasks/TaskController';
 import "express-async-errors";
 
@@ -17,8 +18,7 @@ class Server{
 
     // ミドルウェア設定
     private middleware(){
-        this.app.set("view engine", "pug");
-        this.app.set("views","src/views");
+        this.app.use(cors({origin: true, credentials: true}));
         this.app.use(express.urlencoded({extended: true}));
         this.app.use(express.json());
     }
