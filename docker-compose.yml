@@ -9,8 +9,20 @@ services:
     environment:
       - HOST=0.0.0.0
       - CHOKIDIR_USEPOLLING=true
+      - PORT=3000
     tty: true
     ports: 
       - "3000:3000"
-      - "5173:5173"
+    command: npm run dev
+  backend: 
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/app/:/app
+    tty: true
+    environment:
+      - PORT=3001
+    ports: 
+      - "3001:3001"
     command: npm run dev
