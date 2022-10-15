@@ -2,8 +2,8 @@ import express from "express";
 import AuthController from "../auth/AuthController";
 export default class App {
     private _express: express.Express;
-    constructor(){
-        this._express = express();
+    constructor(express: express.Express){
+        this._express = express;
     }
     run(){
         this._express.listen(process.env.PORT, ()=>{
