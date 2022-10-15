@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     host: true,
+    watch: {
+      usePolling: true,
+    },
     port: parseInt(process.env.PORT)
   }
 })
