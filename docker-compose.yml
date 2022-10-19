@@ -14,6 +14,7 @@ services:
     ports: 
       - "3000:3000"
     command: npm run dev
+
   backend: 
     build: 
       context: ./backend
@@ -26,3 +27,16 @@ services:
     ports: 
       - "3001:3001"
     command: npm run dev:watch
+
+  mysql: 
+    build: 
+      context: ./mysql
+      dockerfile: Dockerfile
+    tty: true
+    ports: 
+      - 3306:3306
+    env_file:
+      - ./mysql/.env_mysql
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    
