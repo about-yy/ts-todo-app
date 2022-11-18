@@ -1,5 +1,6 @@
 import express from "express";
 import AuthController from "../auth/AuthController";
+import UserController from "../auth/UserController";
 export default class App {
     private _express: express.Express;
     constructor(express: express.Express){
@@ -12,5 +13,6 @@ export default class App {
         this._express.post("/auth/login", new AuthController().login );
         this._express.post("/auth/logout", new AuthController().logout );
         this._express.get("/auth/isLogined", new AuthController().isLogined );
+        this._express.post("/user/regist", new UserController().regist)
     }
 }
