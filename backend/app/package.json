@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node ./src/index.ts",
     "dev:watch": "ts-node-dev --poll --respawn src/index.ts",
-    "test": "npx mocha -r ts-node/register 'test/*.ts' --exit"
+    "test": "npx mocha -r ts-node/register 'test/**/*.ts' --exit"
   },
   "author": "",
   "license": "ISC",
