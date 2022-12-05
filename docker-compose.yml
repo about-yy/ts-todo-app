@@ -24,6 +24,7 @@ services:
     tty: true
     environment:
       - PORT=3001
+      - TZ=Asia/Tokyo
     ports: 
       - "3001:3001"
     command: npm run dev:watch
