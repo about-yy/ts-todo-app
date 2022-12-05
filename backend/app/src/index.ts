@@ -4,14 +4,7 @@ const expressApp = express();
 new App(expressApp).run();
 
 import { configure, getLogger, Log4js } from "log4js";
-configure({
-    appenders: {
-      app: { type: "file", filename: "./log/log.txt" },
-    },
-    categories: {
-      default: { appenders: ["app"], level: "debug" },
-    },
-  });
+configure("./config/log4js.config");
 const logger = getLogger();
 logger.debug('Hello World!!!!');
 export default expressApp;
