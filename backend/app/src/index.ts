@@ -6,7 +6,7 @@ new App(expressApp).run();
 import { configure, getLogger, Log4js } from "log4js";
 configure({
     appenders: {
-      app: { type: "file", filename: "log.txt" },
+      app: { type: "file", filename: "./log/log.txt" },
     },
     categories: {
       default: { appenders: ["app"], level: "debug" },
