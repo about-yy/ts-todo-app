@@ -10,11 +10,11 @@ describe("ユーザ登録API", () => {
             .send({
                 email: "about-yy@gmail.com@gmail.com",
                 password: "Hao8Nadew",
-                name: "coder-yamada",
+                username: "coder-yamada",
             });
         expect(response.status).to.equal(200);
-        expect(response.body).has.key("id");
-        expect({id: "111"}).has.key("id");
+        expect(response.body).has.key("userId");
+        expect(response.body.userId).to.equal(Number(1).toLocaleString());
     })
     it("ログイン", async () => {
         const response = await app
@@ -25,13 +25,11 @@ describe("ユーザ登録API", () => {
             });
 
         expect(response.status).to.equal(200);
-        expect(response.body).has.key("result");
+        expect(response.body).has.keys(["result", "userId", "email", "username"]);
         expect(response.body.result).to.equal(true);
-
-        expect(response.body).has.key("id");
-        expect(response.body).has.key("name");
-        expect(response.body.name).to.be("coder-yamada");
-        expect(typeof response.body.id).to.equal(Number);
+        expect(response.body.email).to.equal("about-yy@gmail.com@gmail.com");
+        expect(response.body.username).to.equal("coder-yamada");
+        expect(response.body.userId).to.equal(Number(1).toLocaleString());
         
     })
 })
