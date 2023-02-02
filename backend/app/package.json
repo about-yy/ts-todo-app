@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "ts-node ./src/index.ts",
     "dev:watch": "ts-node-dev --poll --respawn src/index.ts",
-    "test": "npx mocha -r ts-node/register 'test/*.ts' --exit"
+    "test": "npx mocha -r ts-node/register 'test/**/*.ts' --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.9.0",
     "express": "^4.18.1",
-    "log4js": "^6.7.1"
+    "log4js": "^6.7.1",
+    "prisma": "^4.6.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
