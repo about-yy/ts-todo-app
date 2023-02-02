@@ -11,11 +11,13 @@ export default class Logger {
         args.length > 0 ? 
             this.logger().info(message, args):
             this.logger().info(message);
+        return;
     }
 
     static debug(message: any, ...args: any[]) {
         args.length > 0 ? 
             this.logger().debug(message, args):
             this.logger().debug(message);
+        return;
     }
 }
