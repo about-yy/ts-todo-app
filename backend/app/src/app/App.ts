@@ -3,6 +3,8 @@ import AuthController from "../auth/AuthController";
 import Logger from "../common/Logger";
 import UserController from "../user/UserController";
 import 'express-async-errors';
+import ErrorHandler from "./ErrorHandler";
+
 export default class App {
     private _express: express.Express;
     constructor(express: express.Express){
@@ -12,6 +14,7 @@ export default class App {
         this._express.listen(process.env.PORT, ()=>{
             console.log("Start on port "+process.env.PORT);
         });
+
         this._express.use(express.json());
         this._express.use(express.urlencoded({extended: true}));
 
@@ -23,9 +26,8 @@ export default class App {
             Logger.error("hello from error");
             throw new Error("hello");
         })
-        this._express.use((err: any, req: Request, res: Response, next: NextFunction)=>{
-            Logger.error("hello from error handling");
-            next(err);
-        });
+
+        this._express.use(new ErrorHandler().handleError);
+
     }
 }
