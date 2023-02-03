@@ -1,6 +1,8 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import AuthController from "../auth/AuthController";
+import Logger from "../common/Logger";
 import UserController from "../user/UserController";
+import 'express-async-errors';
 export default class App {
     private _express: express.Express;
     constructor(express: express.Express){
@@ -12,9 +14,18 @@ export default class App {
         });
         this._express.use(express.json());
         this._express.use(express.urlencoded({extended: true}));
+
         this._express.post("/auth/login", new AuthController().login );
         this._express.post("/auth/logout", new AuthController().logout );
         this._express.get("/auth/isLogined", new AuthController().isLogined );
         this._express.post("/user/regist", new UserController().regist)
+        this._express.get("/error", async (req: Request, res: Response, next: NextFunction)=>{
+            Logger.error("hello from error");
+            throw new Error("hello");
+        })
+        this._express.use((err: any, req: Request, res: Response, next: NextFunction)=>{
+            Logger.error("hello from error handling");
+            next(err);
+        });
     }
 }

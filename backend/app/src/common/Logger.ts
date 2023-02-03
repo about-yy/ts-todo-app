@@ -20,4 +20,11 @@ export default class Logger {
             this.logger().debug(message);
         return;
     }
+
+    static error(message: any, ...args: any[]) {
+        args.length > 0 ? 
+            this.logger().error(message, args):
+            this.logger().error(message);
+        return;
+    }
 }
