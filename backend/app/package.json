@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "ts-node ./src/index.ts",
     "dev:watch": "ts-node-dev --poll --respawn src/index.ts",
-    "test": "npx mocha -r ts-node/register 'test/**/*.ts' --exit"
+    "test": "npx mocha -r ts-node/register 'test/**/*.ts' --exit",
+    "test:reset": "npx prisma migrate reset && npx mocha -r ts-node/register 'test/**/*.ts' --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.9.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "log4js": "^6.7.1",
