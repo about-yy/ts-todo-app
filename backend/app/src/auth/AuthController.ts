@@ -1,5 +1,4 @@
 import {Request, Response, NextFunction} from "express";
-import Logger from "../common/Logger";
 import AuthService from "./AuthService";
 import User from "../user/User";
 export default class AuthController {
