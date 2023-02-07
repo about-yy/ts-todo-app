@@ -4,6 +4,7 @@ import Logger from "../common/Logger";
 import UserController from "../user/UserController";
 import 'express-async-errors';
 import ErrorHandler from "./ErrorHandler";
+import { HttpsError } from "../common/http-error";
 
 export default class App {
     private _express: express.Express;
@@ -24,7 +25,7 @@ export default class App {
         this._express.post("/user/regist", new UserController().regist)
         this._express.get("/error", async (req: Request, res: Response, next: NextFunction)=>{
             Logger.error("hello from error");
-            throw new Error("hello");
+            throw new HttpsError("internal", "this is error test page");
         })
 
         this._express.use(new ErrorHandler().handleError);
