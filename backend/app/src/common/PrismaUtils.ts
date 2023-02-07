@@ -6,7 +6,10 @@ export default class PrismaUtils {
     static getHttpException(e: any){
         if(e instanceof PrismaClientKnownRequestError){
             if(e.code === 'P2002'){
-                return new HttpsError('already-exists', "既に存在するユーザです。", e);
+                return new HttpsError('already-exists', "already-exists", e);
+            }
+            if(e.code === 'P2025'){
+                return new HttpsError('invalid-argument', "not found", e);
             }
         }
 
