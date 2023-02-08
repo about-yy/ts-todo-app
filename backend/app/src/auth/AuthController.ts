@@ -15,7 +15,7 @@ export default class AuthController {
             userId: user.userId,
             username: user.userName
         };
-        const token = jwt.sign(jwtPayload, config.SECRET_KEY, {expiresIn: 60*10});
+        const token = jwt.sign(jwtPayload, config.SECRET_KEY, {expiresIn: 1});
         return response.send({result: loginReseult, userId: user.userId, email: user.email, username: user.userName, token: token});
     }
 
@@ -24,6 +24,9 @@ export default class AuthController {
     }
 
     async isLogined(req: Request, response: Response, next: NextFunction){
-        return response.send("isLogined api");
+        const service = new AuthService();
+        const result = await service.isLogined(req.headers.authorization);
+
+        return response.send({result: true});
     }
 }
