@@ -1,6 +1,9 @@
 import {Request, Response, NextFunction} from "express";
 import AuthService from "./AuthService";
 import User from "../user/User";
+import jwt from "jsonwebtoken";
+import config from "../app/config";
+
 export default class AuthController {
     constructor(){}
     
@@ -8,7 +11,12 @@ export default class AuthController {
         const authService = new AuthService();
         const user: User =  await authService.login(req.body.email, req.body.password);
         const loginReseult = typeof user.userId != undefined;
-        return response.send({result: loginReseult, userId: user.userId, email: user.email, username: user.userName});
+        const jwtPayload = {
+            userId: user.userId,
+            username: user.userName
+        };
+        const token = jwt.sign(jwtPayload, config.SECRET_KEY, {expiresIn: 60*10});
+        return response.send({result: loginReseult, userId: user.userId, email: user.email, username: user.userName, token: token});
     }
 
     async logout(req: Request, response: Response, next: NextFunction){

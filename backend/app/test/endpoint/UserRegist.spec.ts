@@ -27,7 +27,7 @@ describe("ユーザ登録テスト", async ()=>{
                 password: user.password
             });
         expect(loginResult.status).to.equal(200);
-        expect(loginResult.body).has.keys(["result", "userId", "email", "username"])
+        expect(loginResult.body).has.keys(["result", "userId", "email", "username", "token"])
         expect(loginResult.body.result).to.equal(true);
         expect(loginResult.body.email).to.equal(user.email)
         expect(loginResult.body.username).to.equal(user.username)
@@ -65,7 +65,7 @@ describe("ユーザ登録テスト", async ()=>{
                 password: user.password
             });
         expect(loginResult.status).to.equal(200);
-        expect(loginResult.body).has.keys(["result", "userId", "email", "username"])
+        expect(loginResult.body).has.keys(["result", "userId", "email", "username", "token"])
         expect(loginResult.body.result).to.equal(true);
         expect(loginResult.body.email).to.equal(user.email)
         expect(loginResult.body.username).to.equal(user.username)

@@ -7,7 +7,7 @@ export default class AuthService {
     async login(email: string, password: string): Promise<User>{
         const repository = new AuthRepository();
         const user = repository.findUser(email);
-        const passwordIsEqual = compareSync(password, (await user).hashedPassword.toString());
+        const passwordIsEqual = (await user).comparePassword(password);
 
         if(passwordIsEqual){
             return user;
