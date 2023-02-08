@@ -4,15 +4,15 @@ import UserController from "../user/UserController";
 import 'express-async-errors';
 import ErrorHandler from "./ErrorHandler";
 import { HttpsError } from "../common/http-error";
-
+import config from "./config";
 export default class App {
     private _express: express.Express;
     constructor(express: express.Express){
         this._express = express;
     }
     run(){
-        this._express.listen(process.env.PORT, ()=>{
-            console.log("Start on port "+process.env.PORT);
+        this._express.listen(config.port, ()=>{
+            console.log("Start on port "+config.port);
         });
 
         this._express.use(express.json());
