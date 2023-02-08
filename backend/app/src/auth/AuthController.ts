@@ -24,6 +24,9 @@ export default class AuthController {
     }
 
     async isLogined(req: Request, response: Response, next: NextFunction){
-        return response.send("isLogined api");
+        const service = new AuthService();
+        const result = await service.isLogined(req.headers.authorization);
+
+        return response.send({result: true});
     }
 }

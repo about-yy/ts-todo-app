@@ -1,9 +1,9 @@
-import User from "../user/User";
 import { PrismaClient } from "@prisma/client";
 import PrismaUtils from "../common/PrismaUtils";
+import Auth from "./Auth";
 
 export default class AuthRepository {
-    async findUser(email: string): Promise<User>{
+    async findUser(email: string): Promise<Auth>{
         try {            
             const prisma = new PrismaClient();
             const found = await prisma.user.findFirstOrThrow({
@@ -12,7 +12,7 @@ export default class AuthRepository {
                 }
             });
 
-            const user = new User(found.id.toLocaleString(), found.email, found.name, found.password);
+            const user = new Auth(found.id.toLocaleString(), found.email, found.name, found.password);
             return user;
         } catch (error) {
             throw PrismaUtils.getHttpException(error);

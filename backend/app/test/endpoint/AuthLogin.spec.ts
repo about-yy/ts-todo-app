@@ -58,7 +58,7 @@ describe("ログイン機能のテスト", async()=>{
         // ログイン状態になったかどうかの確認
         const isLoginResult = await app
             .get("/auth/isLogined");
-        expect(isLoginResult.status).to.eq(200);
+        expect(isLoginResult.status).to.eq(401);
         expect(isLoginResult.body).include.keys(["result"]);
         expect(isLoginResult.body.result).eq(false);
     })
@@ -92,7 +92,7 @@ describe("ログイン機能のテスト", async()=>{
         // ログイン状態になったかどうかの確認
         const isLoginResult = await app
             .get("/auth/isLogined");
-        expect(isLoginResult.status).to.eq(200);
+        expect(isLoginResult.status).to.eq(401);
         expect(isLoginResult.body).include.keys(["result"]);
         expect(isLoginResult.body.result).eq(false);
         
