@@ -15,7 +15,7 @@ export default class AuthController {
             userId: user.userId,
             username: user.userName
         };
-        const token = jwt.sign(jwtPayload, config.SECRET_KEY, {expiresIn: 1});
+        const token = jwt.sign(jwtPayload, config.SECRET_KEY, {expiresIn: 60*10});
         return response.send({result: loginReseult, userId: user.userId, email: user.email, username: user.userName, token: token});
     }
 
