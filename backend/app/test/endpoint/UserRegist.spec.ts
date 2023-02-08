@@ -1,5 +1,5 @@
 // ユーザ登録テスト
-import testdata from "./user.testdata.json";
+import testdata from "./userRegist.testdata.json";
 import index from "../../src/index";
 import supertest from "supertest";
 import { expect } from "chai";
