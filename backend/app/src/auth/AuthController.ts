@@ -20,7 +20,8 @@ export default class AuthController {
     }
 
     async logout(req: Request, response: Response, next: NextFunction){
-        return response.send("logout api");
+        // nothing to do 
+        return response.send({result: true});
     }
 
     async isLogined(req: Request, response: Response, next: NextFunction){
