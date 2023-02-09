@@ -5,7 +5,7 @@ import 'express-async-errors';
 import ErrorHandler from "./ErrorHandler";
 import { HttpsError } from "../common/http-error";
 import config from "./config";
-import Authenticator from "../common/Authenticater";
+import Authenticator from "../common/Authenticator";
 export default class App {
     private _express: express.Express;
     constructor(express: express.Express){

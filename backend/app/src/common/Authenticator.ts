@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
 import config from "../app/config";
 import { HttpsError } from "./http-error";
-import Logger from "./Logger";
 
 export default class Authenticator {
     async authenticate(req: Request, res: Response, next: NextFunction){
