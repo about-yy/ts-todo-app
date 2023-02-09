@@ -1,4 +1,4 @@
-import { compareSync } from "bcrypt";
+import { compareSync } from "bcryptjs";
 
 export default class Auth {
     public userId: String;

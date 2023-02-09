@@ -16,7 +16,8 @@ export default class AuthController {
             username: user.userName
         };
         const token = jwt.sign(jwtPayload, config.SECRET_KEY, {expiresIn: config.EXPIRES_IN});
-        return response.send({result: loginReseult, userId: user.userId, email: user.email, username: user.userName, token: token});
+        response.setHeader("Authorization", token);
+        return response.send({result: loginReseult, userId: user.userId, email: user.email, username: user.userName});
     }
 
     async logout(req: Request, response: Response, next: NextFunction){

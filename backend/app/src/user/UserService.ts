@@ -1,4 +1,4 @@
-import { hash, hashSync } from "bcrypt";
+import { hashSync } from "bcryptjs";
 import User from "./User";
 import UserRepository from "./UserRepository";
 

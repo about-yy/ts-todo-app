@@ -25,7 +25,7 @@ describe("ログアウト機能のテスト", async()=>{
         
         const isLoginedResult = await app
             .get("/auth/isLogined")
-            .set("Authorization", loginResult.body.token);
+            .set("Authorization", loginResult.headers.authorization);
         expect(isLoginedResult.status).to.eq(200);
 
         const logoutResult = await app
