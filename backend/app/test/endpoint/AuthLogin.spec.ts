@@ -28,13 +28,14 @@ describe("ログイン機能のテスト", async()=>{
             });
         
         expect(loginResult.status).to.eq(200);
-        expect(loginResult.body).has.keys(["result", "userId", "email", "username", "token"]);
+        expect(loginResult.headers).include.keys(["authorization"]);
+        expect(loginResult.body).has.keys(["result", "userId", "email", "username"]);
         expect(loginResult.body.result).eq(true);
         
         // ログイン状態になったかどうかの確認
         const isLoginResult = await app
             .get("/auth/isLogined")
-            .set("Authorization", loginResult.body.token);
+            .set("Authorization", loginResult.headers.authorization);
         expect(isLoginResult.status).to.eq(200);
         expect(isLoginResult.body).has.keys(["result"]);
         expect(isLoginResult.body.result).eq(true);
