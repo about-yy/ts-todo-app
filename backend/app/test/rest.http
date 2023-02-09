@@ -2,7 +2,7 @@ POST http://localhost:3001/auth/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "about-yy@gmail.com@gmail.com",
+    "email": "abouta-yy@gmail.com.gmail.com",
     "password": "Hao8Nadew"
 }
 
@@ -12,9 +12,12 @@ POST http://localhost:3001/user/regist HTTP/1.1
 content-type: application/json
 
 {
-    "email": "abouta-yy@gmail.com@gmail.com",
-    "password": "Hao8Nadew"
+    "email": "abouta-yy@gmail.com.gmail.com",
+    "password": "Hao8Nadew",
+    "username": "yamada taro"
 }
 
 ###
-GET http://localhost:3001/error 
+GET http://localhost:3001/auth/isLogined
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMCIsInVzZXJuYW1lIjoieWFtYWRhIHRhcm8iLCJpYXQiOjE2NzU5MTkwODYsImV4cCI6MTY3NTkxOTY4Nn0.KMM4phCk3MheniXyG0C88tlnk6TUT_lBXYtt69sOR0Q
+
