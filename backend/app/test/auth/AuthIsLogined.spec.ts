@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import supertest from "supertest";
 import index from "../../src/index";
-import testdata from "../auth/authIsLogined.testdata.json";
+import testdata from "./authIsLogined.testdata.json";
 
 const app = supertest(index);
 describe("ログインチェック機能のテスト", async()=>{
