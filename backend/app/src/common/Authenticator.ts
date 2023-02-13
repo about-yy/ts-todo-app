@@ -11,15 +11,15 @@ export default class Authenticator {
 
         try {
             // jwtの検証
-            const payload: string | JwtPayload  = jwt.verify(req.headers.authorization, config.SECRET_KEY);
-            if( typeof payload !== "string" ){
-                delete payload.iat;
-                delete payload.exp; 
-            }
+            const payload: string | JwtPayload  = jwt.verify(req.headers.authorization, config.SECRET_KEY) as JwtPayload;
+            delete payload.iat;
+            delete payload.exp; 
 
             // jwtの更新
             const newToken = jwt.sign(payload, config.SECRET_KEY, {expiresIn: config.EXPIRES_IN});
             res.setHeader("Authorization", newToken);
+            req.body.userId  = payload.userId;
+            
             next();
         } catch (e: any) {
             if(e instanceof JsonWebTokenError){
