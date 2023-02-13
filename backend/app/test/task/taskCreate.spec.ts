@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { addMonths, format, subMonths } from "date-fns";
 import supertest from "supertest";
-import Logger from "../../src/common/Logger";
 import index from "../../src/index";
 import testdata from "./taskCreate.testdata.json";
 
@@ -34,8 +33,9 @@ describe("タスク登録テスト", async()=>{
             .set("Authorization", loginResult.headers.authorization)
             .send({
                 title: task.title,
-                period: format(new Date(),'yyyy-M-d')
+                period: new Date().toISOString()
             });
+
         expect(createResult.status).to.eq(200);
         expect(createResult.body).has.keys(["result", "taskId"]);
         expect(createResult.body.result).eq(true);
@@ -58,7 +58,7 @@ describe("タスク登録テスト", async()=>{
             .set("Authorization", loginResult.headers.authorization)
             .send({
                 title: task.title,
-                period: format(new Date(),'yyyy-M-d')
+                period: new Date().toISOString()
             });
         expect(createResult.status).to.eq(400);
         expect(createResult.body).include.keys(["result"]);
@@ -67,7 +67,7 @@ describe("タスク登録テスト", async()=>{
     })
 
     it("期限が今日", async()=>{
-        const task = testdata.tasks.correct;
+        const task = testdata.tasks.today_period;
         const loginResult = await app
             .post("/auth/login")
             .send({
@@ -82,7 +82,7 @@ describe("タスク登録テスト", async()=>{
         .set("Authorization", loginResult.headers.authorization)
         .send({
             title: task.title,
-            period: format(new Date(),'yyyy-M-d')
+            period: new Date().toISOString()
         });
         expect(createResult.status).to.eq(200);
         expect(createResult.body).has.keys(["result", "taskId"]);
@@ -92,7 +92,7 @@ describe("タスク登録テスト", async()=>{
     })
 
     it("期限が未来", async()=>{
-        const task = testdata.tasks.correct;
+        const task = testdata.tasks.future_period;
         const loginResult = await app
             .post("/auth/login")
             .send({
@@ -107,7 +107,7 @@ describe("タスク登録テスト", async()=>{
             .set("Authorization", loginResult.headers.authorization)
             .send({
                 title: task.title,
-                period: format(addMonths(new Date(), 1) ,'yyyy-M-d')
+                period: addMonths(new Date(), 1).toISOString()
             });
         expect(createResult.status).to.eq(200);
         expect(createResult.body).has.keys(["result", "taskId"]);
@@ -117,7 +117,7 @@ describe("タスク登録テスト", async()=>{
     })
 
     it("期限が過去", async()=>{
-        const task = testdata.tasks.correct;
+        const task = testdata.tasks.past_period;
         const loginResult = await app
             .post("/auth/login")
             .send({
@@ -132,7 +132,7 @@ describe("タスク登録テスト", async()=>{
             .set("Authorization", loginResult.headers.authorization)
             .send({
                 title: task.title,
-                period: format(subMonths(new Date(), 1) ,'yyyy-M-d')
+                period: subMonths(new Date(), 1).toISOString()
             });
         expect(createResult.status).to.eq(400);
         expect(createResult.body).include.keys(["result"]);

@@ -7,6 +7,7 @@ export default class Validator {
         if(errors.length > 0 ){
             throw new HttpsError("invalid-argument", "invalid argument", this.formatClassValidateErrors(errors));
         }
+        return errors;
     }
 
     private static formatClassValidateErrors(errors: ValidationError[]){
