@@ -164,3 +164,116 @@ describe("タスク登録テスト", async()=>{
     })
 
 })
+
+describe("タスク登録テスト（複数）", async()=>{
+    const user = testdata.users.multi_correct;
+    before(async ()=>{
+        // ユーザ登録
+        const regsitResult = await app
+            .post("/user/regist")
+            .send({
+                email: user.email,
+                password: user.password,
+                username: user.username
+            });
+    })
+    it("全件登録", async()=>{
+        const tasks = Object.values(testdata.tasks).map((task: any) => {
+            task.period = new Date().toISOString();
+            if(!task.title){
+                task.title = "no content"
+            }
+            return task;
+        });
+
+        const loginResult = await app
+            .post("/auth/login")
+            .send({
+                email: user.email,
+                password: user.password
+            });
+
+        expect(loginResult.status).to.eq(200)
+        const createResult = await app
+            .post("/task/create")
+            .set("Authorization", loginResult.headers.authorization)
+            .send({
+                tasks: tasks
+            });
+
+        expect(createResult.status).to.eq(200);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
+        expect(createResult.body.result).eq(true);
+        expect(typeof createResult.body.success).eq("Array");
+        expect(typeof createResult.body.failed).eq("Array");
+        expect(createResult.body.success.length).is.eq(tasks.length);
+        expect(createResult.body.failed.length).is.eq(0);
+    })
+    it("一部登録、一部失敗", async()=>{
+        const tasks = Object.values(testdata.tasks).map((task: any, index) => {
+            task.period = new Date().toISOString();
+            if(index < 5){
+                task.title = "";
+            } else if(index >= 5 && !task.title){
+                task.title = "no content"
+            }
+            return task;
+        });
+
+        const loginResult = await app
+            .post("/auth/login")
+            .send({
+                email: user.email,
+                password: user.password
+            });
+
+        expect(loginResult.status).to.eq(200)
+        const createResult = await app
+            .post("/task/create")
+            .set("Authorization", loginResult.headers.authorization)
+            .send({
+                tasks: tasks
+            });
+
+        expect(createResult.status).to.eq(200);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
+        expect(createResult.body.result).eq(false);
+        expect(typeof createResult.body.success).eq("Array");
+        expect(typeof createResult.body.failed).eq("Array");
+        expect(createResult.body.success.length).is.eq(tasks.length-4);
+        expect(createResult.body.failed.length).is.eq(4);
+
+
+    })
+    it("全部失敗", async()=>{
+        const tasks = Object.values(testdata.tasks).map((task: any) => {
+            task.period = new Date().toISOString();
+            task.title = ""
+            return task;
+        });
+
+        const loginResult = await app
+            .post("/auth/login")
+            .send({
+                email: user.email,
+                password: user.password
+            });
+
+        expect(loginResult.status).to.eq(200)
+        const createResult = await app
+            .post("/task/create")
+            .set("Authorization", loginResult.headers.authorization)
+            .send({
+                tasks: tasks
+            });
+
+        expect(createResult.status).to.eq(200);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
+        expect(createResult.body.result).eq(false);
+        expect(typeof createResult.body.success).eq("Array");
+        expect(typeof createResult.body.failed).eq("Array");
+        expect(createResult.body.success.length).is.eq(0);
+        expect(createResult.body.failed.length).is.eq(tasks.length);
+
+    })
+})
