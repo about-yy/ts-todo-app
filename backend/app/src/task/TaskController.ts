@@ -31,22 +31,24 @@ export default class TaskController {
 
         const failed: any[] = [];
         const success: number[] = [];
+        const validatedInput: TaskInput[] = []
         for await (const taskInput of taskInputList) {
             try {
-                const validationResult = Validator.classValidate(taskInput);
+                const validationResult = await Validator.classValidate(taskInput);
                 if(format(taskInput.period, "yyyy-MM-dd") < format(new Date(), "yyyy-MM-dd")){
                     throw new HttpsError("invalid-argument", "task period is past. please input future or current date.");
-                }                
+                }
+                validatedInput.push(taskInput);
             } catch (error) {
                 const errorDetail = Object.assign(taskInput, {error: error}) ; 
                 failed.push(errorDetail);
             }
         }
-
-        const registResult = await service.regist(userId, taskInputList);
+        const registResult = await service.regist(userId, validatedInput);
         success.push(...registResult.success);
         failed.push(...registResult.failed);
-        
-        res.send({result: true, success: success, failed: failed});
+        const result: boolean = (failed.length == 0)?true:false;
+
+        res.send({result: result, success: success, failed: failed});
     }
 }

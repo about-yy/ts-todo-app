@@ -40,6 +40,9 @@ describe("タスク登録テスト", async()=>{
         expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(true);
         expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(1)
+        expect(createResult.body.failed.length).eq(0)
     })
 
     it("タスク名なし", async()=>{
@@ -60,9 +63,14 @@ describe("タスク登録テスト", async()=>{
                 title: task.title,
                 period: new Date().toISOString()
             });
-        expect(createResult.status).to.eq(400);
-        expect(createResult.body).include.keys(["result"]);
+
+        expect(createResult.status).to.eq(200);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(false);
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(0)
+        expect(createResult.body.failed.length).eq(1)
 
     })
 
@@ -76,7 +84,6 @@ describe("タスク登録テスト", async()=>{
             });
         expect(loginResult.status).to.eq(200)
 
-
         const createResult = await app
         .post("/task/create")
         .set("Authorization", loginResult.headers.authorization)
@@ -85,10 +92,12 @@ describe("タスク登録テスト", async()=>{
             period: new Date().toISOString()
         });
         expect(createResult.status).to.eq(200);
-        expect(createResult.body).has.keys(["result", "taskId"]);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(true);
-        expect(createResult.body.taskId).is.not.undefined;
-
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(1)
+        expect(createResult.body.failed.length).eq(0)
     })
 
     it("期限が未来", async()=>{
@@ -110,10 +119,12 @@ describe("タスク登録テスト", async()=>{
                 period: addMonths(new Date(), 1).toISOString()
             });
         expect(createResult.status).to.eq(200);
-        expect(createResult.body).has.keys(["result", "taskId"]);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(true);
-        expect(createResult.body.taskId).is.not.undefined;
-
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(1)
+        expect(createResult.body.failed.length).eq(0)
     })
 
     it("期限が過去", async()=>{
@@ -134,9 +145,13 @@ describe("タスク登録テスト", async()=>{
                 title: task.title,
                 period: subMonths(new Date(), 1).toISOString()
             });
-        expect(createResult.status).to.eq(400);
-        expect(createResult.body).include.keys(["result"]);
+        expect(createResult.status).to.eq(200);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(false);
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(0)
+        expect(createResult.body.failed.length).eq(1)
     })
 
     it("期限が不正な値", async()=>{
@@ -157,9 +172,13 @@ describe("タスク登録テスト", async()=>{
                 title: task.title,
                 period: format(new Date(),'yyyy-M-d, yyyyy-M-d')
             });
-        expect(createResult.status).to.eq(400);
-        expect(createResult.body).include.keys(["result"]);
+        expect(createResult.status).to.eq(200);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(false);
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(0)
+        expect(createResult.body.failed.length).eq(1)
 
     })
 
