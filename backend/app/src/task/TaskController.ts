@@ -13,7 +13,6 @@ export default class TaskController {
         const service = new TaskService();
         const hasMultiBody = req.body.tasks;
         const hasOneBody = req.body.title || req.body.period;
-
         let taskInputList: TaskInput[] = [];
 
         if(hasMultiBody&&hasOneBody){
@@ -28,26 +27,8 @@ export default class TaskController {
         }
 
         const userId: number = Number(await JwtUtils.getUserId(req));
-
-        const failed: any[] = [];
-        const success: number[] = [];
-        const validatedInput: TaskInput[] = []
-        for await (const taskInput of taskInputList) {
-            try {
-                const validationResult = await Validator.classValidate(taskInput);
-                if(format(taskInput.period, "yyyy-MM-dd") < format(new Date(), "yyyy-MM-dd")){
-                    throw new HttpsError("invalid-argument", "task period is past. please input future or current date.");
-                }
-                validatedInput.push(taskInput);
-            } catch (error) {
-                const errorDetail = Object.assign(taskInput, {error: error}) ; 
-                failed.push(errorDetail);
-            }
-        }
-        const registResult = await service.regist(userId, validatedInput);
-        success.push(...registResult.success);
-        failed.push(...registResult.failed);
-        const result: boolean = (failed.length == 0)?true:false;
+        const {success, failed} = await service.regist(userId, taskInputList);
+        const result = (success.length == taskInputList.length && failed.length == 0);
 
         res.send({result: result, success: success, failed: failed});
     }
