@@ -1,9 +1,10 @@
+import TaskInput from "./TaskInput";
 import TaskRepository from "./TaskRepository";
 
 export default class TaskService {
-    async regist(userId: number, taskName: string, period: Date){
+    async regist(userId: number, taskInputList: TaskInput[]){
         const repository = new TaskRepository();
-        const registedTask = await repository.regist(userId, taskName, period);
-        return registedTask.id;
+        const registResult = await repository.regist(userId, taskInputList);
+        return registResult;
     }
 }

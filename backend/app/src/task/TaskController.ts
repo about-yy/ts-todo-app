@@ -11,16 +11,42 @@ export default class TaskController {
 
     async create(req: Request, res: Response, next: NextFunction){
         const service = new TaskService();
-        const taskInput = plainToInstance(TaskInput, req.body);
-        const validationResult = await Validator.classValidate(taskInput);
-        const userId: number = Number(await JwtUtils.getUserId(req));
+        const hasMultiBody = req.body.tasks;
+        const hasOneBody = req.body.title || req.body.period;
 
-        if(format(taskInput.period, "yyyy-MM-dd") < format(new Date(), "yyyy-MM-dd")){
-            throw new HttpsError("invalid-argument", "task period is past. please input future or current date.");
+        let taskInputList: TaskInput[] = [];
+
+        if(hasMultiBody&&hasOneBody){
+            throw new HttpsError("invalid-argument", "invalid argument");
+        } else if(hasMultiBody){
+            taskInputList = plainToInstance(TaskInput, Object.values(req.body.tasks)) as TaskInput[];
+        } else if(hasOneBody){
+            const taskInput = plainToInstance(TaskInput, req.body);
+            taskInputList = [taskInput];
+        } else {
+            throw new HttpsError("invalid-argument", "invalid argument");
         }
 
-        const taskId: number = await service.regist(userId, taskInput.taskName, taskInput.period);
+        const userId: number = Number(await JwtUtils.getUserId(req));
+
+        const failed: any[] = [];
+        const success: number[] = [];
+        for await (const taskInput of taskInputList) {
+            try {
+                const validationResult = Validator.classValidate(taskInput);
+                if(format(taskInput.period, "yyyy-MM-dd") < format(new Date(), "yyyy-MM-dd")){
+                    throw new HttpsError("invalid-argument", "task period is past. please input future or current date.");
+                }                
+            } catch (error) {
+                const errorDetail = Object.assign(taskInput, {error: error}) ; 
+                failed.push(errorDetail);
+            }
+        }
+
+        const registResult = await service.regist(userId, taskInputList);
+        success.push(...registResult.success);
+        failed.push(...registResult.failed);
         
-        res.send({result: true, taskId: taskId});
+        res.send({result: true, success: success, failed: failed});
     }
 }

@@ -37,9 +37,9 @@ describe("タスク登録テスト", async()=>{
             });
 
         expect(createResult.status).to.eq(200);
-        expect(createResult.body).has.keys(["result", "taskId"]);
+        expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(true);
-        expect(createResult.body.taskId).is.not.undefined;
+        expect(createResult.body.success).to.be.an("array")
     })
 
     it("タスク名なし", async()=>{
