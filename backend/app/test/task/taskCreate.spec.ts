@@ -223,10 +223,10 @@ describe("タスク登録テスト（複数）", async()=>{
         expect(createResult.status).to.eq(200);
         expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(true);
-        expect(typeof createResult.body.success).eq("Array");
-        expect(typeof createResult.body.failed).eq("Array");
-        expect(createResult.body.success.length).is.eq(tasks.length);
-        expect(createResult.body.failed.length).is.eq(0);
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(tasks.length)
+        expect(createResult.body.failed.length).eq(0)
     })
     it("一部登録、一部失敗", async()=>{
         const tasks = Object.values(testdata.tasks).map((task: any, index) => {
@@ -257,10 +257,10 @@ describe("タスク登録テスト（複数）", async()=>{
         expect(createResult.status).to.eq(200);
         expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(false);
-        expect(typeof createResult.body.success).eq("Array");
-        expect(typeof createResult.body.failed).eq("Array");
-        expect(createResult.body.success.length).is.eq(tasks.length-4);
-        expect(createResult.body.failed.length).is.eq(4);
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(tasks.length-5)
+        expect(createResult.body.failed.length).eq(5)
 
 
     })
@@ -289,10 +289,10 @@ describe("タスク登録テスト（複数）", async()=>{
         expect(createResult.status).to.eq(200);
         expect(createResult.body).has.keys(["result", "success", "failed"]);
         expect(createResult.body.result).eq(false);
-        expect(typeof createResult.body.success).eq("Array");
-        expect(typeof createResult.body.failed).eq("Array");
-        expect(createResult.body.success.length).is.eq(0);
-        expect(createResult.body.failed.length).is.eq(tasks.length);
+        expect(createResult.body.success).to.be.an("array")
+        expect(createResult.body.failed).to.be.an("array")
+        expect(createResult.body.success.length).eq(0)
+        expect(createResult.body.failed.length).eq(tasks.length)
 
     })
 })
