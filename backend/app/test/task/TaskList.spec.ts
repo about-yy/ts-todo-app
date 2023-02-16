@@ -2,7 +2,6 @@ import supertest from "supertest";
 import index from "../../src/index";
 import testdata from "./taskList.testdata.json";
 import randomWords from "random-words";
-import Logger from "../../src/common/Logger";
 import { expect } from "chai";
 
 const app = supertest(index);
@@ -15,8 +14,6 @@ describe("タスク全件取得のテスト", async()=>{
             period: new Date().toISOString()
         }
     });
-    Logger.debug(tasks.slice(0,1))
-    Logger.debug(tasks.slice(1,2))
 
     before(async()=>{
         // ユーザ登録
