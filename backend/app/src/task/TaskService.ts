@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 import { HttpsError } from "../common/http-error";
 import Validator from "../common/Validator";
-import TaskInput from "./TaskInput";
+import TaskRegistInput from "./TaskRegistInput";
 import TaskRepository from "./TaskRepository";
 
 export default class TaskService {
-    async regist(userId: number, taskInputList: TaskInput[]){
+    async regist(userId: number, taskInputList: TaskRegistInput[]){
         const repository = new TaskRepository();
         const validatedInput = [];
         const failed = [], success = [];
@@ -29,4 +29,11 @@ export default class TaskService {
         
         return {success, failed};
     }
+
+    async getTasks(userId: number, limit: number = 100){
+        const repository = new TaskRepository();
+        const tasks = await repository.get(userId, limit);
+        return tasks;
+    }
+
 }

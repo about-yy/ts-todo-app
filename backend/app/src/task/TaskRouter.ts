@@ -9,6 +9,7 @@ export default class TaskRouter {
         const authenticator = new Authenticator();
         this.router = Router();
         this.router.post("/create", authenticator.authenticate, controller.create);
+        this.router.get("/list",authenticator.authenticate, controller.list);
 
     }
 }

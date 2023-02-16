@@ -2,7 +2,7 @@ import { Expose, Type } from "class-transformer";
 import { IsDate, IsNotEmpty, IsString } from "class-validator";
 import "reflect-metadata";
 
-export default class TaskInput {
+export default class TaskRegistInput {
     @IsNotEmpty()
     @IsString()
     @Expose({name: "title"})
