@@ -1,16 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import PrismaClientProvider from "../common/PrismaClientProvider";
 import TaskRegistInput from "./TaskRegistInput";
 
 export default class TaskRepository {
     async regist(userId: number, taskInputList: TaskRegistInput[]){
-        const client = new PrismaClient();
-        const insertData = taskInputList.map((task)=>{
-            return {
-                title: task.taskName,
-                limit_date: task.period,
-                userId: userId
-            };
-        });
+        const client = await PrismaClientProvider.getClient();
         const success: number[] = [];
         const failed: any[] = [];
         for (const taskInput of taskInputList) {
@@ -35,7 +28,7 @@ export default class TaskRepository {
     }
 
     async get(userId: number, limit: number) {
-        const client = new PrismaClient();
+        const client = await PrismaClientProvider.getClient();
         const result = await client.task.findMany({
             where: {
                 userId: userId
