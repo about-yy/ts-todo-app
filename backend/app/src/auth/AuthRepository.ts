@@ -1,11 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import PrismaClientProvider from "../common/PrismaClientProvider";
 import PrismaUtils from "../common/PrismaUtils";
 import Auth from "./Auth";
 
 export default class AuthRepository {
     async findUser(email: string): Promise<Auth>{
         try {            
-            const prisma = new PrismaClient();
+            const prisma = await PrismaClientProvider.getClient();
             const found = await prisma.user.findFirstOrThrow({
                 where: {
                     email: email
