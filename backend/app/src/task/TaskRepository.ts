@@ -4,13 +4,6 @@ import TaskRegistInput from "./TaskRegistInput";
 export default class TaskRepository {
     async regist(userId: number, taskInputList: TaskRegistInput[]){
         const client = await PrismaClientProvider.getClient();
-        const insertData = taskInputList.map((task)=>{
-            return {
-                title: task.taskName,
-                limit_date: task.period,
-                userId: userId
-            };
-        });
         const success: number[] = [];
         const failed: any[] = [];
         for (const taskInput of taskInputList) {
