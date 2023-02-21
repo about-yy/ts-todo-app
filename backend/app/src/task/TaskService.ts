@@ -3,6 +3,7 @@ import { HttpsError } from "../common/http-error";
 import Validator from "../common/Validator";
 import TaskRegistInput from "./TaskRegistInput";
 import TaskRepository from "./TaskRepository";
+import TaskUpdateInput from "./TaskUpdateInput";
 
 export default class TaskService {
     async regist(userId: number, taskInputList: TaskRegistInput[]){
@@ -34,6 +35,31 @@ export default class TaskService {
         const repository = new TaskRepository();
         const tasks = await repository.get(userId, limit);
         return tasks;
+    }
+
+    async updateTasks(userId: number, taskList: TaskUpdateInput[]){
+        const repository = new TaskRepository();
+        const validatedInput = [];
+        const failed = [], success = [];
+
+        for await (const taskInput of taskList) {
+            try {
+                const validationResult = await Validator.classValidate(taskInput);
+                if(format(taskInput.period, "yyyy-MM-dd") < format(new Date(), "yyyy-MM-dd")){
+                    throw new HttpsError("invalid-argument", "task period is past. please input future or current date.");
+                }
+                validatedInput.push(taskInput);
+            } catch (error) {
+                const errorDetail = Object.assign(taskInput, {error: error}) ; 
+                failed.push(errorDetail);
+            }
+        }
+
+
+        const result = await repository.update(userId, validatedInput);
+        success.push(...result.success);
+        failed.push(...result.failed);
+        return {success, failed};
     }
 
 }
