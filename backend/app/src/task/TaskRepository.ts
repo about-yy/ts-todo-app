@@ -31,8 +31,15 @@ export default class TaskRepository {
     async get(userId: number, limit: number) {
         const client = await PrismaClientProvider.getClient();
         const result = await client.task.findMany({
+            select: {
+                task_id: true,
+                title: true,
+                period: true 
+            },
             where: {
-                user_id: userId
+                user_id: userId,
+                completed_at: null,
+                deleted_at: null
             },
             orderBy: {
                 created_at: "asc"
