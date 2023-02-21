@@ -5,6 +5,7 @@ import Logger from "../../src/common/Logger";
 import index from "../../src/index";
 import testdata from "./taskEdit.testdata.json";
 import deepEqualInAnyOrder from 'deep-equal-in-any-order';
+import { Task } from "@prisma/client";
 use(deepEqualInAnyOrder);
 
 const app = supertest(index);
@@ -63,15 +64,16 @@ describe("タスク編集機能のテスト", async()=>{
         expect(taskListResult.body.tasks.length).to.eq(10)
         
         const editWord = words(1)[0];
-        const targetTask = taskListResult.body.tasks[0];
+        const targetTask: Task = taskListResult.body.tasks[0];
         const taskEditResult = await app
             .post("/task/edit")
             .set("Authorization", loginResult.headers.authorization)
             .send({
-                taskId: targetTask.id,
+                taskId: targetTask.task_id,
                 title: editWord,
                 period: new Date().toISOString()
             });
+        Logger.debug(taskEditResult);
         expect(taskEditResult.status).to.eq(200)
         expect(taskEditResult.body.result).eq(true)
         expect(taskEditResult.body.success.length).eq(1);
@@ -82,9 +84,9 @@ describe("タスク編集機能のテスト", async()=>{
             .set("Authorization", loginResult.headers.authorization);
         expect(reGetResult.status).to.eq(200)
         expect(reGetResult.body.tasks.length).eq(10)
-        const updatedTask = reGetResult.body.tasks.filter((task:any)=>task.id === targetTask.id)[0];
+        const updatedTask = reGetResult.body.tasks.filter((task:Task)=>task.task_id === targetTask.task_id)[0];
         expect(updatedTask.title).to.eq(editWord);
-        expect(updatedTask.limit_date).not.eq(targetTask.limit_date);
+        expect(updatedTask.period).not.eq(targetTask.period);
     })
     it("2件編集", async()=>{
         // ログイン
@@ -104,9 +106,9 @@ describe("タスク編集機能のテスト", async()=>{
         expect(taskListResult.status).to.eq(200)
         expect(taskListResult.body.tasks.length).to.eq(10)
         
-        const editTasks = taskListResult.body.tasks.slice(0,2).map((task: any)=>{  
+        const editTasks: Task[] = taskListResult.body.tasks.slice(0,2).map((task: any)=>{  
             return {
-                taskId: task.id,
+                taskId: task.task_id,
                 title: words(1)[0], 
                 period: new Date().toISOString()
             };

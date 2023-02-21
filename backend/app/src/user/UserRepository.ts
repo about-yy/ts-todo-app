@@ -14,7 +14,7 @@ export default class UserRepository {
                 }
             })
     
-            return new User(createdUser.id.toLocaleString(), createdUser.email, createdUser.name);            
+            return new User(createdUser.user_id.toLocaleString(), createdUser.email, createdUser.name);            
         } catch (error) {
             throw PrismaUtils.getHttpException(error);
         }

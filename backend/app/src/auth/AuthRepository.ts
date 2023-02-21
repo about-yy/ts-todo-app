@@ -12,7 +12,7 @@ export default class AuthRepository {
                 }
             });
 
-            const user = new Auth(found.id.toLocaleString(), found.email, found.name, found.password);
+            const user = new Auth(found.user_id.toLocaleString(), found.email, found.name, found.password);
             return user;
         } catch (error) {
             throw PrismaUtils.getHttpException(error);

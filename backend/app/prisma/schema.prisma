@@ -12,7 +12,7 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  user_id Int @id @default(autoincrement())
   email String @unique
   name String 
   password String
@@ -20,9 +20,12 @@ model User {
 }
 
 model Task {
-  id Int @id @default(autoincrement())
+  task_id Int @id @default(autoincrement())
+  user_id Int 
   title String 
-  limit_date DateTime?
-  userId Int 
-  user User @relation(fields: [userId], references: [id])
+  period DateTime?
+  created_at DateTime @default(now())
+  completed_at DateTime?
+  deleted_at DateTime?
+  user User @relation(fields: [user_id], references: [user_id])
 }
