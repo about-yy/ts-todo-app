@@ -97,6 +97,7 @@ describe("タスク全件取得のテスト", async()=>{
         expect(getResult.status).to.eq(200);
         expect(getResult.body).has.keys(["tasks"]);
         expect(getResult.body.tasks).to.be.an("array")
+        expect(getResult.body.tasks[0]).has.keys(["task_id", "title", "period"]);
         expect(getResult.body.tasks.length).eq(1);
 
     });

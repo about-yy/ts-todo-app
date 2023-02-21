@@ -11,12 +11,12 @@ export default class TaskRepository {
             const registResult = client.task.create(
                 {data: {
                     title: taskInput.taskName,
-                    limit_date: taskInput.period,
-                    user: {connect: {id: userId}}
+                    period: taskInput.period,
+                    user: {connect: {user_id: userId}}
                 }}
             );
             await registResult.then((registedTask)=>{
-                success.push(registedTask.id);
+                success.push(registedTask.task_id);
             }).catch((e)=>{
                 failed.push(Object.assign(taskInput, e));
             })
@@ -31,11 +31,18 @@ export default class TaskRepository {
     async get(userId: number, limit: number) {
         const client = await PrismaClientProvider.getClient();
         const result = await client.task.findMany({
+            select: {
+                task_id: true,
+                title: true,
+                period: true 
+            },
             where: {
-                userId: userId
+                user_id: userId,
+                completed_at: null,
+                deleted_at: null
             },
             orderBy: {
-                limit_date: "asc"
+                created_at: "asc"
             },
             take: limit
         });
@@ -50,16 +57,16 @@ export default class TaskRepository {
             const updateResult = client.task.update(
                 {
                     where: {
-                        id: taskInput.taskId
+                        task_id: taskInput.taskId
                     }, 
                     data: {
                         title: taskInput.taskName,
-                        limit_date: taskInput.period
+                        period: taskInput.period
                     }
                 }
             );
             await updateResult.then((task)=>{
-                success.push(task.id);
+                success.push(task.task_id);
             }).catch((e)=>{
                 failed.push(Object.assign(taskInput, e));
             })
