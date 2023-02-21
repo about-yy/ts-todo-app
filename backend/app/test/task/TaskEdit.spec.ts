@@ -1,7 +1,6 @@
 import { expect, use } from "chai";
 import words from "random-words";
 import supertest from "supertest";
-import Logger from "../../src/common/Logger";
 import index from "../../src/index";
 import testdata from "./taskEdit.testdata.json";
 import deepEqualInAnyOrder from 'deep-equal-in-any-order';
@@ -73,7 +72,6 @@ describe("タスク編集機能のテスト", async()=>{
                 title: editWord,
                 period: new Date().toISOString()
             });
-        Logger.debug(taskEditResult);
         expect(taskEditResult.status).to.eq(200)
         expect(taskEditResult.body.result).eq(true)
         expect(taskEditResult.body.success.length).eq(1);
