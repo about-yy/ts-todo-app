@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpsError } from "../common/http-error";
-import Logger from "../common/Logger";
+import { HttpsError } from "./http-error";
+import Logger from "./Logger";
 
 
 export default class ErrorHandler {
