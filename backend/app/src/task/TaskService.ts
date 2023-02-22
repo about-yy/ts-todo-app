@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { HttpsError } from "../common/http-error";
 import Validator from "../common/Validator";
+import TaskCompleteInput from "./TaskCompleteInput";
 import TaskRegistInput from "./TaskRegistInput";
 import TaskRepository from "./TaskRepository";
 import TaskUpdateInput from "./TaskUpdateInput";
@@ -55,11 +56,19 @@ export default class TaskService {
             }
         }
 
-
         const result = await repository.update(userId, validatedInput);
         success.push(...result.success);
         failed.push(...result.failed);
         return {success, failed};
+    }
+
+    async completeTask(userId: number, taskCompleteInput: TaskCompleteInput) {
+        const repository = new TaskRepository();
+        const result = await repository.complete(userId, taskCompleteInput.taskId);
+        if(result.count == 0){
+            throw new HttpsError("invalid-argument", "task is not found")
+        }
+        return taskCompleteInput.taskId;
     }
 
 }
