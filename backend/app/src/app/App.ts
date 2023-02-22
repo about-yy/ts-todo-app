@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import 'express-async-errors';
-import ErrorHandler from "./ErrorHandler";
+import ErrorHandler from "../common/ErrorHandler";
 import config from "./config";
 import AuthRouter from "../auth/AuthRouter";
 import UserRouter from "../user/UserRouter";
