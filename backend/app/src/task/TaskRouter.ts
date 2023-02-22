@@ -11,5 +11,6 @@ export default class TaskRouter {
         this.router.post("/create", authenticator.authenticate, controller.create);
         this.router.get("/list",authenticator.authenticate, controller.list);
         this.router.post("/edit", authenticator.authenticate, controller.edit);
+        this.router.post("/complete", authenticator.authenticate, controller.complete);
     }
 }

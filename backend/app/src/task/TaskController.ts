@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { HttpsError } from "../common/http-error";
 import JwtUtils from "../common/JwtUtils";
 import Validator from "../common/Validator";
+import TaskCompleteInput from "./TaskCompleteInput";
 import TaskListInput from "./TaskListInput";
 import TaskRegistInput from "./TaskRegistInput";
 import TaskService from "./TaskService";
@@ -67,4 +68,14 @@ export default class TaskController {
         res.send({result: result, success: success, failed: failed});
     }
 
+    async complete(req: Request, res: Response, next: NextFunction){
+        const service = new TaskService();
+        const taskCompleteInput = plainToInstance(TaskCompleteInput, req.body);
+
+        const validationResult = await Validator.classValidate(taskCompleteInput);
+        const userId = Number(await JwtUtils.getUserId(req))
+        const taskId = await service.completeTask(userId, taskCompleteInput);
+        
+        res.send({result: true, task_id: taskId});
+    }
 }

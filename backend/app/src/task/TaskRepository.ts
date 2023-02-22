@@ -54,10 +54,11 @@ export default class TaskRepository {
         const success: number[] = [];
         const failed: any[] = [];
         for (const taskInput of taskInputList) {
-            const updateResult = client.task.update(
+            const updateResult = client.task.updateMany(
                 {
                     where: {
-                        task_id: taskInput.taskId
+                        task_id: taskInput.taskId,
+                        user_id: userId
                     }, 
                     data: {
                         title: taskInput.taskName,
@@ -66,12 +67,27 @@ export default class TaskRepository {
                 }
             );
             await updateResult.then((task)=>{
-                success.push(task.task_id);
+                success.push(taskInput.taskId);
             }).catch((e)=>{
                 failed.push(Object.assign(taskInput, e));
             })
         }
         return {success, failed};
+    }
+
+    async complete(userId: number, taskId: number){
+        const client = await PrismaClientProvider.getClient();
+        const result = await client.task.updateMany({
+            where: {
+                task_id: taskId,
+                completed_at: null,
+                user_id: userId
+            }, 
+            data: {
+                completed_at: new Date().toISOString()
+            }
+        });
+        return result;
     }
 
 }
