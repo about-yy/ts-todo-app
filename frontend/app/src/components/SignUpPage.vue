@@ -1,20 +1,45 @@
 <template>
     <v-card class="signup-form" title="ユーザ登録|TS TODO APP">
         <v-container>
-            <v-text-field id="email" clearable class="text-input" label="メールアドレス"></v-text-field>
-            <v-text-field id="username" clearable class="text-input" label="ユーザー名"></v-text-field>
-            <v-text-field id="password" clearable class="text-input" label="パスワード"></v-text-field>
-            <v-text-field id="password_confirm" clearable class="text-input" label="パスワード（確認用）"></v-text-field>
+            <v-form v-model="loginFormState.form" @submit.prevent="onSubmit">
+                <v-text-field label="メールアドレス" v-model="loginForm.email" id="email" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
+                <v-text-field label="ユーザー名" v-model="loginForm.username" id="username" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
+                <v-text-field label="パスワード" v-model="loginForm.password" id="password" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
+                <v-text-field label="パスワード（確認用）" v-model="loginForm.password_confirm" id="password_confirm" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
+                <v-btn type="submit" class="submit-btn" :loading="loginFormState.loading" :disabled="!loginFormState.form" variant="flat" color="primary" >登録</v-btn>
+            </v-form>
         </v-container>
-        <v-btn type="submit" class="submit-btn" variant="flat" color="primary">登録</v-btn>
     </v-card>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 
 export default defineComponent({
     setup() {
-        
+        const loginForm = reactive({
+            email: "",
+            username: "",
+            password: "",
+            password_confirm: "",
+        });
+        const loginFormState = reactive({
+            loading: false,
+            form: false
+        })
+        const onSubmit = ()=>{
+            if(!loginFormState.form) return;
+            loginFormState.loading = true;
+            setTimeout(()=>{loginFormState.loading = false}, 1000)
+        }
+        const requiredValidation = (value: any)=>{
+            return !!value||"required";
+        }
+        return {
+            loginForm,
+            loginFormState,
+            requiredValidation,
+            onSubmit
+        }
     },
 })
 </script>
