@@ -1,4 +1,3 @@
-.gitignore
 .env
 .env_mysql
 mysql/data/**/*
