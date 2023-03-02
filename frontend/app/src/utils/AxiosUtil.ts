@@ -6,7 +6,7 @@ export default class AxiosUtil {
     }
     static async get(path: string){
         const domain = this.getBackendURL();
-        const url = `${domain}/${path}`;
+        const url = `${domain}${path}`;
         axios
             .get(domain+url)
             
@@ -15,7 +15,7 @@ export default class AxiosUtil {
 
     static async post(path: string, data?: {}, config?: AxiosRequestConfig<any>){
         const domain = this.getBackendURL();
-        const url = `${domain}/${path}`;
+        const url = `${domain}${path}`;
         return await axios.post(url,data, config);
     }
 
