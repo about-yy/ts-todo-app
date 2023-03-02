@@ -1,5 +1,5 @@
 <template>
-    <v-card class="signup-form" title="ユーザ登録|TS TODO APP">
+    <v-card class="signup-form" title="ユーザ登録 | TS TODO APP">
         <v-container>
             <v-form v-model="loginFormState.form" @submit.prevent="onSubmit">
                 <v-text-field label="メールアドレス" v-model="loginForm.email" id="email" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
@@ -25,7 +25,7 @@ export default defineComponent({
         const loginFormState = reactive({
             loading: false,
             form: false
-        })
+        });
         const onSubmit = ()=>{
             if(!loginFormState.form) return;
             loginFormState.loading = true;
