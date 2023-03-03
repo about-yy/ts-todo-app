@@ -1,5 +1,8 @@
 <template>
     <v-card class="login-form" title="ログイン | TS TODO APP">
+        <div class="navigation">
+            <router-link to="/">ユーザ登録</router-link> / <router-link :is="'span'" to="/login">ログイン</router-link>
+         </div>
         <v-container>
             <ErrorMessage v-if="loginFormState.isFailed" message="メールアドレス、またはパスワードに誤りがあります。入力内容を確認してください。"></ErrorMessage>
             <v-form v-model="loginFormState.form" @submit.prevent="onSubmit">
@@ -82,5 +85,11 @@ export default defineComponent({
 .login-form .submit-btn {
     display: block;
     margin: auto;
+}
+.navigation { 
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-block;
 }
 </style>
