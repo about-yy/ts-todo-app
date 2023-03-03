@@ -35,8 +35,13 @@ export default class App {
         const allowOrigins = [
             process.env.FRONTEND_ORIGIN as string
         ];
+        const exposedHeaders = [
+            "authorization",
+            "content-type"
+        ]
         const options: cors.CorsOptions = {
-            origin: allowOrigins
+            origin: allowOrigins,
+            exposedHeaders: exposedHeaders
         }
         this._express.use(cors(options));
     }
