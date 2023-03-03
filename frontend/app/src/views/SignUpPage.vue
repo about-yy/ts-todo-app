@@ -68,8 +68,6 @@ export default defineComponent({
                 email: email,
                 password: password
             }).then((res)=>{
-                console.log(res.headers);
-                console.log(res.headers.getAuthorization);
                 store.dispatch(ActionTypes.SET_ACCESS_TOKEN, res.headers.authorization);
             })
             return result;
