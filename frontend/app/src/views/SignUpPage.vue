@@ -1,5 +1,8 @@
 <template>
     <v-card class="signup-form" title="ユーザ登録 | TS TODO APP">
+        <div class="navigation">
+            <router-link to="/">ユーザ登録</router-link> / <router-link :is="'span'" to="/login">ログイン</router-link>
+         </div>
         <v-container>
             <ErrorMessage v-if="signupFormState.isFailed" message="ユーザ登録に失敗しました。入力内容を確認してください。"></ErrorMessage>
             <v-form v-model="signupFormState.form" @submit.prevent="onSubmit">
@@ -97,4 +100,11 @@ export default defineComponent({
     display: block;
     margin: auto;
 }
+.navigation { 
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-block;
+}
+
 </style>
