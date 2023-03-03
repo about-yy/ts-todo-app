@@ -1,6 +1,7 @@
 <template>
     <v-card class="signup-form" title="ユーザ登録 | TS TODO APP">
         <v-container>
+            <ErrorMessage v-if="loginFormState.isFailed" message="ユーザ登録に失敗しました。入力内容を確認してください。"></ErrorMessage>
             <v-form v-model="loginFormState.form" @submit.prevent="onSubmit">
                 <v-text-field label="メールアドレス" v-model="loginForm.email" id="email" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
                 <v-text-field label="ユーザー名" v-model="loginForm.username" id="username" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
@@ -13,10 +14,17 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import { useRouter } from 'vue-router';
 import AxiosUtil from '../utils/AxiosUtil';
+import ErrorMessage from '../components/ErrorMessage.vue';
 
 export default defineComponent({
+    components: {
+        ErrorMessage
+    },  
     setup() {
+        const router = useRouter();
+
         const loginForm = reactive({
             email: "",
             username: "",
@@ -25,19 +33,38 @@ export default defineComponent({
         });
         const loginFormState = reactive({
             loading: false,
-            form: false
+            form: false,
+            isFailed: false,
         });
-        const onSubmit = ()=>{
+        const onSubmit = async ()=>{
             if(!loginFormState.form) return;
             if(loginForm.password !== loginForm.password_confirm) return;
             loginFormState.loading = true;
 
-            AxiosUtil.post("/user/regist", {
+            const result = AxiosUtil.post("/user/regist", {
                 email: loginForm.email,
                 username: loginForm.username,
                 password: loginForm.password
+            }).then((res)=>{
+                // タスクページへ遷移
+                if(res.status === 200){
+                    loginFormState.isFailed = false;
+                    moveToTaskPage();
+                } else {
+                    // エラーメッセージを表示
+                    loginFormState.isFailed = true;
+                }
+            }).catch(error=>{
+                // エラーメッセージを表示
+                loginFormState.isFailed = true;
+            }).finally(()=>{
+                // 状態を初期化
+                loginFormState.loading = false;
             })
-            setTimeout(()=>{loginFormState.loading = false}, 1000)
+
+        }
+        const moveToTaskPage = ()=>{
+            router.push({name: "app"});
         }
         const requiredValidation = (value: any)=>{
             return !!value||"required";
