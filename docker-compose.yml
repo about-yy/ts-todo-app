@@ -31,7 +31,8 @@ services:
       - "3001:3001"
     command: npm run dev:watch
 
-  db: 
+  mysql: 
+    container_name: mysql
     build: 
       context: ./mysql
       dockerfile: Dockerfile
