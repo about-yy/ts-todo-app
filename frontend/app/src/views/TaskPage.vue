@@ -1,18 +1,18 @@
 <template>
     <template v-for="task in tasks" :key="task">
         <div>
-            {{ task }}
+            {{ task.title }}
         </div>
     </template>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount, reactive, ref } from 'vue'
+import { computed, defineComponent, onBeforeMount, reactive, Ref, ref } from 'vue'
 import { useStore } from '../store'
 import AxiosUtil from '../utils/AxiosUtil'
-
+import {Task} from 'custom-types';
 export default defineComponent({
     setup() {
-        const tasks = ref([]);
+        const tasks: Ref<Task[]> = ref([]);
         const getTasks = async ()=>{
             const result = await AxiosUtil.get('/task/list')
             tasks.value = result.data.tasks;
