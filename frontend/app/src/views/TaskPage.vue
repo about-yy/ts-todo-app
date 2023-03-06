@@ -1,22 +1,25 @@
 <template>
-    <p>{{ token }}</p>
+    <template v-for="task in tasks" :key="task">
+        <div>
+            {{ task }}
+        </div>
+    </template>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount } from 'vue'
+import { computed, defineComponent, onBeforeMount, reactive, ref } from 'vue'
 import { useStore } from '../store'
 import AxiosUtil from '../utils/AxiosUtil'
 
 export default defineComponent({
     setup() {
+        const tasks = ref([]);
         const getTasks = async ()=>{
             const result = await AxiosUtil.get('/task/list')
-            console.log(result);
+            tasks.value = result.data.tasks;
         }
         onBeforeMount(getTasks);
-        const store = useStore();
-        const token = computed(()=>store.state.token);
         return {
-            token
+            tasks
         }
     },
 })
