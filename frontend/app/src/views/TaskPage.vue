@@ -6,8 +6,7 @@
     </template>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount, reactive, Ref, ref } from 'vue'
-import { useStore } from '../store'
+import { defineComponent, onBeforeMount, Ref, ref } from 'vue'
 import AxiosUtil from '../utils/AxiosUtil'
 import {Task} from 'custom-types';
 export default defineComponent({
