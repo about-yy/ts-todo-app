@@ -1,7 +1,8 @@
 <template>
     <template v-for="task in tasks" :key="task">
-        <div>
-            {{ task.title }}
+        <div class="task_item">
+            <span class="checkbox-circle"></span>
+            <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
         </div>
     </template>
 </template>
@@ -24,7 +25,25 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.taskItem:hover {
-    background-color: aliceblue;
+.task_item {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
 }
+
+.task_item .task_item-text{
+    margin: 0.2em 0.4em;
+    line-height: 100%;
+
+}
+
+.checkbox-circle {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: solid 1px;
+    border-radius: 50%;
+}
+
 </style>
