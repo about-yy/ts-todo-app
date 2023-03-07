@@ -81,7 +81,6 @@ export default defineComponent({
 .login-form {
     margin: 20px;
     padding: 40px;
-    color: $color_text;
 }
 .login-form .submit-btn {
     display: block;
