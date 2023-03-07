@@ -10,7 +10,7 @@
     "test": "npx vitest"
   },
   "dependencies": {
-    "@mdi/font": "5.9.55",
+    "@mdi/font": "^5.9.55",
     "@vitejs/plugin-vue": "^3.0.3",
     "axios": "^1.3.4",
     "custom-types": "file:../../share/custom-types",

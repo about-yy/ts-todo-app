@@ -1,7 +1,7 @@
 <template>
     <template v-for="task in tasks" :key="task">
         <div class="task_item">
-            <span class="checkbox-circle"></span>
+            <CircleButton size="30px" />
             <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
         </div>
     </template>
@@ -10,7 +10,12 @@
 import { defineComponent, onBeforeMount, Ref, ref } from 'vue'
 import AxiosUtil from '../utils/AxiosUtil'
 import {Task} from 'custom-types';
+import CircleButton from '../components/CircleButton.vue';
+
 export default defineComponent({
+    components: {
+        CircleButton
+    },
     setup() {
         const tasks: Ref<Task[]> = ref([]);
         const getTasks = async ()=>{
@@ -38,12 +43,5 @@ export default defineComponent({
 
 }
 
-.checkbox-circle {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: solid 1px;
-    border-radius: 50%;
-}
 
 </style>
