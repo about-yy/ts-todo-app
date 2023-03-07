@@ -24,7 +24,7 @@ export default defineComponent({
     },
 })
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .task_item {
     display: flex;
     align-items: center;
