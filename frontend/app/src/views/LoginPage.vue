@@ -77,10 +77,11 @@ export default defineComponent({
     },
 })
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .login-form {
     margin: 20px;
     padding: 40px;
+    color: $color_secondary;
 }
 .login-form .submit-btn {
     display: block;
