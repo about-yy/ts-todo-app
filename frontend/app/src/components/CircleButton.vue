@@ -24,18 +24,19 @@ export default defineComponent({
     },
 })
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .button-circle {
     display: inline-block;
     width: 26px;
     height: 26px;
     border: solid 1px;
     border-radius: 50%;
+    opacity: 0.5;
 }
 
 .button-circle:hover {
     cursor:pointer;
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .mdi-check {

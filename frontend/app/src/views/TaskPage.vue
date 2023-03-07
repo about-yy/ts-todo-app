@@ -1,7 +1,7 @@
 <template>
     <template v-for="task in tasks" :key="task">
         <div class="task_item">
-            <CircleButton size="30px" />
+            <CircleButton/>
             <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
         </div>
     </template>
@@ -34,7 +34,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-items: center;
-
+    margin: 4.5px;
 }
 
 .task_item .task_item-text{
