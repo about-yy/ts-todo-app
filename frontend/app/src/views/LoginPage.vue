@@ -18,8 +18,8 @@ import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router';
 import AxiosUtil from '../utils/AxiosUtil';
 import ErrorMessage from '../components/ErrorMessage.vue';
-import { useStore } from '../store';
-import * as ActionTypes from '../store/ActionTypes';
+import { useStore } from '../app/store';
+import * as ActionTypes from '../app/ActionTypes';
 
 export default defineComponent({
     components: {

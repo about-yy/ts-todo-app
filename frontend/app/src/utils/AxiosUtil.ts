@@ -1,6 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import { store } from "../store";
-import * as ActionTypes from "../store/ActionTypes";
+import { store } from "../app/store";
+import * as ActionTypes from "../app/ActionTypes";
 
 export default class AxiosUtil {
     private static getBackendURL(){
