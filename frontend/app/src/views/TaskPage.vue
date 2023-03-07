@@ -1,10 +1,15 @@
 <template>
-    <template v-for="task in tasks" :key="task">
-        <div class="task_item">
-            <CircleButton/>
-            <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
+    <div class="content">
+        <h3 class="title">タスク一覧 | TS TODO APP</h3>
+        <div class="task_list">
+            <template v-for="task in tasks" :key="task">
+                <div class="task_item"> 
+                    <CircleButton/>
+                    <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
+                </div>
+            </template>
         </div>
-    </template>
+    </div>
 </template>
 <script lang="ts">
 import { defineComponent, onBeforeMount, Ref, ref } from 'vue'
@@ -42,6 +47,12 @@ export default defineComponent({
     line-height: 100%;
 
 }
+.content {
+    margin: 20px;
+    padding: 20px 40px;
+}
 
-
+.task_list {
+    margin: 12px 5px;
+}
 </style>
