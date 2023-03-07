@@ -1,6 +1,6 @@
 <template>
     <button class="button-circle active" @click="onClick">
-        <v-icon v-if="state.done" size="18px" class="mdi-check">mdi-check</v-icon>
+        <v-icon v-if="state.done" size="26px" class="mdi-check">mdi-check</v-icon>
     </button>
 </template>
 <script lang="ts">
@@ -27,8 +27,8 @@ export default defineComponent({
 <style scoped>
 .button-circle {
     display: inline-block;
-    width: 18px;
-    height: 18px;
+    width: 26px;
+    height: 26px;
     border: solid 1px;
     border-radius: 50%;
 }
@@ -39,6 +39,6 @@ export default defineComponent({
 }
 
 .mdi-check {
-    margin: -22px -10px -10px -10px;
+    margin: -13px -10px -10px -10px;
 }
 </style>
