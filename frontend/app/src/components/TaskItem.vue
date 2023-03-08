@@ -1,12 +1,12 @@
 <template>
-    <div class="task_item"> 
+    <div class="task_item" @mouseover="onMouseOver" @mouseleave="onMouseLeave"> 
         <CircleButton/>
         <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
-        <v-icon class="task_delete mdi mdi-close"></v-icon>
+        <v-icon v-if="hovered" class="task_delete mdi mdi-close"></v-icon>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { Task } from 'custom-types';
 import CircleButton from './CircleButton.vue';
 export default defineComponent({
@@ -20,7 +20,18 @@ export default defineComponent({
         }
     },
     setup() {
-        
+        const hovered = ref(false);
+        const onMouseOver = ()=>{
+            hovered.value = true;
+        }
+        const onMouseLeave = ()=>{
+            hovered.value = false;
+        }
+        return {
+            hovered,
+            onMouseOver,
+            onMouseLeave
+        }
     },
 })
 </script>
