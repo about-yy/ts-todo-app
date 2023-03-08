@@ -3,11 +3,7 @@
         <h3 class="title">タスク一覧 | TS TODO APP</h3>
         <div class="task_list">
             <template v-for="task in tasks" :key="task">
-                <div class="task_item"> 
-                    <CircleButton/>
-                    <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
-                    <v-icon class="task_delete mdi mdi-close"></v-icon>
-                </div>
+                <TaskItem :task="task" />
             </template>
         </div>
         <div class="task_add_form">
@@ -23,11 +19,11 @@
 import { defineComponent, onBeforeMount, Ref, ref } from 'vue'
 import AxiosUtil from '../utils/AxiosUtil'
 import {Task} from 'custom-types';
-import CircleButton from '../components/CircleButton.vue';
+import TaskItem from '../components/TaskItem.vue';
 
 export default defineComponent({
     components: {
-        CircleButton
+        TaskItem
     },
     setup() {
         const tasks: Ref<Task[]> = ref([]);
@@ -43,33 +39,6 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.task_item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-items: center;
-    margin: 4.5px;
-}
-
-.task_item .task_item-text{
-    margin: 0.2em 0.4em;
-    line-height: 100%;
-
-}
-
-.task_delete {
-    align-self: flex-end;
-    margin-left: auto;
-    opacity: 0.3;
-}
-.task_delete:hover {
-    cursor: pointer;
-    opacity: 0.3;
-}
-
-.task_delete:active {
-    opacity: 1.0;
-}
 
 .content {
     margin: 20px;
