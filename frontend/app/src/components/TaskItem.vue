@@ -2,7 +2,10 @@
     <div class="task_item" @mouseover="onMouseOver" @mouseleave="onMouseLeave"> 
         <CircleButton/>
         <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
-        <v-icon v-if="hovered" class="task_delete mdi mdi-close"></v-icon>
+        <div class="task_item-nav">
+            <v-icon v-if="hovered" class="task_period mdi mdi-calendar"></v-icon>
+            <v-icon v-if="hovered" class="task_delete mdi mdi-close"></v-icon>
+        </div>
     </div>
 </template>
 <script lang="ts">
@@ -27,6 +30,7 @@ export default defineComponent({
         const onMouseLeave = ()=>{
             hovered.value = false;
         }
+
         return {
             hovered,
             onMouseOver,
@@ -50,17 +54,19 @@ export default defineComponent({
 
 }
 
-.task_delete {
+.task_item-nav {
     align-self: flex-end;
     margin-left: auto;
-    opacity: 0.3;
-}
-.task_delete:hover {
-    cursor: pointer;
-    opacity: 0.3;
 }
 
-.task_delete:active {
+.task_item-nav * {
+    opacity: 0.3;
+}
+.task_item-nav *:hover {
+    cursor: pointer;
+}
+
+.task_item-nav *:active {
     opacity: 1.0;
 }
 
