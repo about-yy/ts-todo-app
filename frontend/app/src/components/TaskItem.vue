@@ -1,15 +1,16 @@
 <template>
     <div class="task_item" @mouseover="onMouseOver" @mouseleave="onMouseLeave"> 
-        <CircleButton/>
-        <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }}</label>
+        <CircleButton @click="taskComplete"/>
+        <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }} {{ date.toLocaleDateString() }}</label>
+        
         <div class="task_item-nav">
-            <Popper>
+            <Popper @close:popper="taskSchedule">
                 <v-icon v-if="hovered" class="icon task_period mdi mdi-calendar"></v-icon>
                 <template #content>
-                    <VCalendar class="calendar-container"></VCalendar>
+                    <DatePicker v-model="date" ></DatePicker>
                 </template>
             </Popper>
-            <v-icon v-if="hovered" class="icon task_delete mdi mdi-close"></v-icon>
+            <!-- <v-icon v-if="hovered" class="icon task_delete mdi mdi-close"></v-icon> -->
         </div>
     </div>
 </template>
@@ -18,13 +19,15 @@ import { defineComponent, PropType, ref } from 'vue'
 import { Task } from 'custom-types';
 import CircleButton from './CircleButton.vue';
 import Popper from 'vue3-popper';
-import {Calendar as VCalendar} from 'v-calendar';
+import {Calendar as VCalendar, DatePicker} from 'v-calendar';
+import AxiosUtil from '../utils/AxiosUtil';
 
 export default defineComponent({
     components: {
         CircleButton,
         Popper,
-        VCalendar
+        VCalendar,
+        DatePicker
     },
     props: {
         task: {
@@ -32,22 +35,41 @@ export default defineComponent({
             required: true
         }
     },
-    setup() {
+    setup(props) {
         const hovered = ref(false);
+        const date = ref(new Date(props.task.period??""));
+
         const onMouseOver = ()=>{
             hovered.value = true;
         }
         const onMouseLeave = ()=>{
-            hovered.value = false;
+            hovered.value = false; 
+        }
+
+        const taskComplete = async ()=>{
+            const result = await AxiosUtil.post("/task/complete", {
+                taskId: props.task.task_id 
+            });
+        }
+
+        const taskSchedule = async ()=>{
+            const result = await AxiosUtil.post("/task/edit",{
+                taskId: props.task.task_id,
+                title: props.task.title,
+                period: date.value.toISOString()
+            })
         }
 
         return {
             hovered,
+            date,
             onMouseOver,
-            onMouseLeave
-        }
+            onMouseLeave,
+            taskComplete,
+            taskSchedule
+        } 
     },
-})
+}) 
 </script>
 <style scoped>
 .task_item {
