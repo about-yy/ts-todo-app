@@ -9,10 +9,8 @@
         <div class="task_add_form">
             <v-text-field
                 class="input-task_add"
-                :class="{'focus': taskCreateInputState.focused}"
+                :class="{'focus': (taskTitle.trim()!=='')}"
                 label="タスク名を入力"
-                @update:focused="onCreateInputFocus"
-                @blur="onCreateInputBlur"
                 v-model="taskTitle" >
                 <div class="right-content">
                     <Popper>
@@ -52,15 +50,8 @@ export default defineComponent({
         }
         const date = ref(new Date());
         getTasks();
-        const taskCreateInputState = reactive({
-            focused: false
-        });
-        const onCreateInputFocus = () => {
-            taskCreateInputState.focused = true
-        }
-        const onCreateInputBlur = () => {
-            taskCreateInputState.focused = false
-        }
+
+
         const taskCreate = async ()=>{
             const result = await AxiosUtil.post("/task/create", {
                 title: taskTitle.value,
@@ -91,11 +82,8 @@ export default defineComponent({
             date,
             taskTitle,
             taskCreate,
-            onCreateInputFocus,
-            onCreateInputBlur,
             taskComplete,
             taskSchedule,
-            taskCreateInputState
         }
     },
 })
