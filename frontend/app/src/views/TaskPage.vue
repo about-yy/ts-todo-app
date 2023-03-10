@@ -3,7 +3,7 @@
         <h3 class="title">タスク一覧 | TS TODO APP</h3>
         <div class="task_list">
             <template v-for="task in tasks" :key="task">
-                <TaskItem :task="task" />
+                <TaskItem @onComplete="()=>taskComplete(task)" @onScheduled="()=>taskSchedule(task)" :task="task" />
             </template>
         </div>
         <div class="task_add_form">
@@ -69,6 +69,21 @@ export default defineComponent({
                 period: new Date().toISOString()
             }); 
         } 
+
+        const taskComplete = async (task: Task)=>{
+            const result = await AxiosUtil.post("/task/complete", {
+                taskId: task.task_id 
+            });
+        }
+
+        const taskSchedule = async (task: Task) => {
+            const result = await AxiosUtil.post("/task/edit",{
+                taskId: task.task_id,
+                title: task.title,
+                period: task.period.toISOString()
+            });
+        }
+
         return {
             tasks,
             date,
@@ -76,6 +91,8 @@ export default defineComponent({
             taskCreate,
             onCreateInputFocus,
             onCreateInputBlur,
+            taskComplete,
+            taskSchedule,
             taskCreateInputState
         }
     },
