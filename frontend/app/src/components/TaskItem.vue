@@ -10,7 +10,6 @@
                     <DatePicker v-model="date" ></DatePicker>
                 </template>
             </Popper>
-            <!-- <v-icon v-if="hovered" class="icon task_delete mdi mdi-close"></v-icon> -->
         </div>
     </div>
 </template>
