@@ -80,7 +80,7 @@ export default defineComponent({
             const result = await AxiosUtil.post("/task/edit",{
                 taskId: task.task_id,
                 title: task.title,
-                period: task.period.toISOString()
+                period: new Date(task.period).toISOString()
             });
         }
 

@@ -1,8 +1,12 @@
 <template>
     <div class="task_item" @mouseover="onMouseOver" @mouseleave="onMouseLeave"> 
         <CircleButton @click="taskComplete"/>
-        <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }} {{ new Date(task.period).toLocaleDateString() }}</label>
-        
+        <label class="task_item-text task_title" :for="`task_${task.task_id}`"> 
+                {{ task.title }}
+        </label>
+        <label class="task_item-text task_period" :for="`task_${task.task_id}`">
+            {{ new Date(task.period).toLocaleDateString() }}
+        </label>
         <div class="task_item-nav">
             <Popper @close:popper="taskSchedule">
                 <v-icon v-if="hovered" class="icon task_period mdi mdi-calendar"></v-icon>
