@@ -56,11 +56,9 @@ export default defineComponent({
             focused: false
         });
         const onCreateInputFocus = () => {
-            console.log("on create input focus")
             taskCreateInputState.focused = true
         }
         const onCreateInputBlur = () => {
-            console.log("on create input blur")
             taskCreateInputState.focused = false
         }
         const taskCreate = async ()=>{
@@ -68,12 +66,15 @@ export default defineComponent({
                 title: taskTitle.value,
                 period: new Date().toISOString()
             }); 
+            await getTasks();
+            taskTitle.value = "";
         } 
 
         const taskComplete = async (task: Task)=>{
             const result = await AxiosUtil.post("/task/complete", {
                 taskId: task.task_id 
             });
+            await getTasks();
         }
 
         const taskSchedule = async (task: Task) => {
@@ -82,6 +83,7 @@ export default defineComponent({
                 title: task.title,
                 period: new Date(task.period).toISOString()
             });
+            await getTasks();
         }
 
         return {
