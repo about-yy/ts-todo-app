@@ -1,13 +1,13 @@
 <template>
     <div class="task_item" @mouseover="onMouseOver" @mouseleave="onMouseLeave"> 
-        <CircleButton @click="taskComplete"/>
-        <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }} {{ date.toLocaleDateString() }}</label>
+        <CircleButton @click="()=>taskComplete(task)"/>
+        <label class="task_item-text" :for="`task_${task.task_id}`"> {{ task.title }} {{ new Date(task.period).toLocaleDateString() }}</label>
         
         <div class="task_item-nav">
-            <Popper @close:popper="taskSchedule">
+            <Popper @close:popper="()=>taskSchedule(task)">
                 <v-icon v-if="hovered" class="icon task_period mdi mdi-calendar"></v-icon>
                 <template #content>
-                    <DatePicker v-model="date" ></DatePicker>
+                    <DatePicker v-model="task.period" ></DatePicker>
                 </template>
             </Popper>
         </div>
@@ -45,17 +45,17 @@ export default defineComponent({
             hovered.value = false; 
         }
 
-        const taskComplete = async ()=>{
+        const taskComplete = async (task: Task)=>{
             const result = await AxiosUtil.post("/task/complete", {
-                taskId: props.task.task_id 
+                taskId: task.task_id 
             });
         }
 
-        const taskSchedule = async ()=>{
+        const taskSchedule = async (task: Task)=>{
             const result = await AxiosUtil.post("/task/edit",{
-                taskId: props.task.task_id,
-                title: props.task.title,
-                period: date.value.toISOString()
+                taskId: task.task_id,
+                title: task.title,
+                period: task.period.toISOString()
             })
         }
 
