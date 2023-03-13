@@ -1,35 +1,47 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
-    <div class="task_item" @mouseover="onMouseOver" @mouseleave="onMouseLeave"> 
-        <CircleButton @click="taskComplete"/>
-        <label class="task_item-text task_title" :for="`task_${task.task_id}`"> 
-                {{ task.title }}
-        </label>
-        <label class="task_item-text task_period" :for="`task_${task.task_id}`">
-            {{ new Date(task.period).toLocaleDateString() }}
-        </label>
-        <div class="task_item-nav">
-            <Popper @close:popper="taskSchedule">
-                <v-icon v-if="hovered" class="icon task_period mdi mdi-calendar"></v-icon>
-                <template #content>
-                    <DatePicker v-model="task.period" ></DatePicker>
-                </template>
-            </Popper>
-        </div>
+  <div
+    class="task_item"
+    @mouseover="onMouseOver"
+    @mouseleave="onMouseLeave"
+  > 
+    <CircleButton @click="taskComplete" />
+    <label
+      class="task_item-text task_title"
+      :for="`task_${task.task_id}`"
+    > 
+      {{ task.title }}
+    </label>
+    <label
+      class="task_item-text task_period"
+      :for="`task_${task.task_id}`"
+    >
+      {{ new Date(task.period).toLocaleDateString() }}
+    </label>
+    <div class="task_item-nav">
+      <Popper @close:popper="taskSchedule">
+        <v-icon
+          v-if="hovered"
+          class="icon task_period mdi mdi-calendar"
+        />
+        <template #content>
+          <DatePicker v-model="task.period" />
+        </template>
+      </Popper>
     </div>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 import { Task } from 'custom-types';
 import CircleButton from './CircleButton.vue';
 import Popper from 'vue3-popper';
-import {Calendar as VCalendar, DatePicker} from 'v-calendar';
-import AxiosUtil from '../utils/AxiosUtil';
+import { DatePicker } from 'v-calendar';
 
 export default defineComponent({
     components: {
         CircleButton,
         Popper,
-        VCalendar,
         DatePicker
     },
     props: {

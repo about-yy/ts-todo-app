@@ -1,15 +1,20 @@
 <template>
-    <p class="error-message">{{ message }}</p>
+  <p class="error-message">
+    {{ message }}
+  </p>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
     props: {
-        message: String
+        message: {
+          type: String,
+          default: undefined
+        }
     },
     setup() {
-        
+      return {};   
     },
 })
 </script>

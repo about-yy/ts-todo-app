@@ -1,15 +1,21 @@
 <template>
-    <button class="button-circle active" @click="onClick">
-        <v-icon v-if="state.done" size="26px" class="mdi-check">mdi-check</v-icon>
-    </button>
+  <button
+    class="button-circle active"
+    @click="onClick"
+  >
+    <v-icon
+      v-if="state.done"
+      size="26px"
+      class="mdi-check"
+    >
+      mdi-check
+    </v-icon>
+  </button>
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 
 export default defineComponent({
-    props: {
-        size: String
-    },
     setup(_props) {
         const state = reactive({
             done: false

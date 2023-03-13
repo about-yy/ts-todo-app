@@ -6,7 +6,7 @@ export default class AxiosUtil {
     private static getBackendURL(){
         return import.meta.env.VITE_BACKEND_DOMAIN;
     }
-    static async get(path: string, config?: AxiosRequestConfig<any>){
+    static async get(path: string, config?: AxiosRequestConfig<unknown>){
         const domain = this.getBackendURL();
         const url = `${domain}${path}`;
         const token = this.getAccessToken();
@@ -22,7 +22,7 @@ export default class AxiosUtil {
         return result;
     }
 
-    static async post(path: string, data?: {}, config?: AxiosRequestConfig<any>){
+    static async post(path: string, data?: object, config?: AxiosRequestConfig<unknown>){
         const domain = this.getBackendURL();
         const url = `${domain}${path}`;
 

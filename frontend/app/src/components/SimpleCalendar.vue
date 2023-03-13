@@ -1,22 +1,37 @@
 <template>
-    <div class="calendar-container">
-        <span class="calendar-title">{{title}}</span>
-        <div class="calendar-header align-center">
-            <v-icon class="mdi mdi-arrow-left-bold"></v-icon>
-            <span class="month">{{new Date().getMonth()+1}}月</span>
-            <v-icon class="mdi mdi-arrow-right-bold"></v-icon>
-        </div>
-        <div class="weeks align-center">
-            <p class="week" v-for="week in weeks" :key="week">{{week}}</p>
-        </div>
-        <div class="dates align-center">
-            <div class="date-row" v-for="dateList in arraySplit(dates, 7)" :key="dateList[0].getDate()">
-                <span class="date" :class="{disable: date.getMonth() !== new Date().getMonth()}" v-for="date in dateList" :key="date.getDate()">
-                    {{ date.getDate() }}
-                </span>
-            </div>
-        </div>
+  <div class="calendar-container">
+    <span class="calendar-title">{{ title }}</span>
+    <div class="calendar-header align-center">
+      <v-icon class="mdi mdi-arrow-left-bold" />
+      <span class="month">{{ new Date().getMonth()+1 }}月</span>
+      <v-icon class="mdi mdi-arrow-right-bold" />
     </div>
+    <div class="weeks align-center">
+      <p
+        v-for="week in weeks"
+        :key="week"
+        class="week"
+      >
+        {{ week }}
+      </p>
+    </div>
+    <div class="dates align-center">
+      <div
+        v-for="dateList in arraySplit(dates, 7)"
+        :key="dateList[0].getDate()"
+        class="date-row"
+      >
+        <span
+          v-for="date in dateList"
+          :key="date.getDate()"
+          class="date"
+          :class="{disable: date.getMonth() !== new Date().getMonth()}"
+        >
+          {{ date.getDate() }}
+        </span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -24,7 +39,10 @@ import { defineComponent, ref, Ref } from 'vue'
 
 export default defineComponent({
     props: {
-        title: String
+        title: {
+          type: String,
+          default: undefined,
+        }
     },
     setup() {
         const arraySplit = <T = object>(array: T[], n: number): T[][] =>

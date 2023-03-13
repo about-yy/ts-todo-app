@@ -1,34 +1,53 @@
 <template>
-    <div class="content">
-        <h3 class="title">タスク一覧 | TS TODO APP</h3>
-        <div class="task_list">
-            <template v-for="task in tasks" :key="task">
-                <TaskItem @onComplete="()=>taskComplete(task)" @onScheduled="()=>taskSchedule(task)" :task="task" />
-            </template>
-        </div>
-        <div class="task_add_form">
-            <v-text-field
-                class="input-task_add"
-                :class="{'focus': (taskTitle.trim()!=='')}"
-                label="タスク名を入力"
-                v-model="taskTitle" >
-                <div class="right-content">
-                    <Popper>
-                        <div class="calendar-container">
-                            <v-icon class="icon task_period mdi mdi-calendar"></v-icon>
-                        </div>
-                        <template #content>
-                            <DatePicker v-model="date" ></DatePicker>
-                        </template>
-                    </Popper>
-                    <v-btn class="button-task_submit" type="submit" @click="taskCreate" variant="flat" color="primary" justify="right">送信</v-btn>
-                </div>
-            </v-text-field>
-        </div>
+  <div class="content">
+    <h3 class="title">
+      タスク一覧 | TS TODO APP
+    </h3>
+    <div class="task_list">
+      <template
+        v-for="task in tasks"
+        :key="task"
+      >
+        <TaskItem
+          :task="task"
+          @on-complete="()=>taskComplete(task)"
+          @on-scheduled="()=>taskSchedule(task)"
+        />
+      </template>
     </div>
+    <div class="task_add_form">
+      <v-text-field
+        v-model="taskTitle"
+        class="input-task_add"
+        :class="{'focus': (taskTitle.trim()!=='')}"
+        label="タスク名を入力"
+      >
+        <div class="right-content">
+          <Popper>
+            <div class="calendar-container">
+              <v-icon class="icon task_period mdi mdi-calendar" />
+            </div>
+            <template #content>
+              <DatePicker v-model="date" />
+            </template>
+          </Popper>
+          <v-btn
+            class="button-task_submit"
+            type="submit"
+            variant="flat"
+            color="primary"
+            justify="right"
+            @click="taskCreate"
+          >
+            送信
+          </v-btn>
+        </div>
+      </v-text-field>
+    </div>
+  </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, Ref, ref } from 'vue'
+import { defineComponent, Ref, ref } from 'vue'
 import AxiosUtil from '../utils/AxiosUtil'
 import {Task} from 'custom-types';
 import TaskItem from '../components/TaskItem.vue';
@@ -53,7 +72,7 @@ export default defineComponent({
 
 
         const taskCreate = async ()=>{
-            const result = await AxiosUtil.post("/task/create", {
+          const _result = await AxiosUtil.post("/task/create", {
                 title: taskTitle.value,
                 period: new Date().toISOString()
             }); 
@@ -62,14 +81,14 @@ export default defineComponent({
         } 
 
         const taskComplete = async (task: Task)=>{
-            const result = await AxiosUtil.post("/task/complete", {
+          const _result = await AxiosUtil.post("/task/complete", {
                 taskId: task.task_id 
             });
             await getTasks();
         }
 
         const taskSchedule = async (task: Task) => {
-            const result = await AxiosUtil.post("/task/edit",{
+            const _result = await AxiosUtil.post("/task/edit",{
                 taskId: task.task_id,
                 title: task.title,
                 period: new Date(task.period).toISOString()
