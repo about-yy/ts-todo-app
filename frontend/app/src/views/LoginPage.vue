@@ -1,35 +1,20 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h2 class="login-card-title">
-        ログイン | TS TODO APP
-      </h2>
+      <h2 class="login-card-title">ログイン | TS TODO APP</h2>
       <form class="login-form">
         <div class="login-field">
           <label for="email">メールアドレス</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-          >
+          <input id="email" type="email" name="email" />
         </div>
 
         <div class="login-field">
           <label for="password">パスワード</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-          >
+          <input id="password" type="password" name="password" />
         </div>
 
         <div class="login-action">
-          <button
-            class="login-button flat"
-            type="submit"
-          >
-            ログイン
-          </button>
+          <button class="login-button flat" type="submit">ログイン</button>
         </div>
       </form>
     </div>

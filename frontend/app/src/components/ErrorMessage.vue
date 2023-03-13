@@ -4,25 +4,25 @@
   </p>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    props: {
-        message: {
-          type: String,
-          default: undefined
-        }
+  props: {
+    message: {
+      type: String,
+      default: undefined,
     },
-    setup() {
-      return {};   
-    },
-})
+  },
+  setup() {
+    return {};
+  },
+});
 </script>
 <style scoped>
 .error-message {
-    background-color: pink;
-    margin: 12px 0px;
-    padding: 14px;
-    border-radius: 3px;
+  background-color: pink;
+  margin: 12px 0px;
+  padding: 14px;
+  border-radius: 3px;
 }
 </style>
