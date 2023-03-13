@@ -8,8 +8,7 @@
     "serve": "npx vite preview",
     "build": "npx vite build",
     "dev": "npx vite",
-    "preview": "npx vite preview",
-    "test": "npx vitest"
+    "preview": "npx vite preview"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",
@@ -29,19 +28,15 @@
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
-    "@testing-library/vue": "^6.6.1",
     "@types/node": "^18.7.13",
     "@types/webfontloader": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
-    "@vue/test-utils": "^2.1.0",
     "eslint": "^8.36.0",
     "eslint-plugin-vue": "^9.9.0",
-    "jsdom": "^20.0.1",
     "typescript": "^4.6.4",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
-    "vitest": "^0.24.3",
     "vue-cli-plugin-vuetify": "~2.5.8",
     "vue-tsc": "^0.39.5"
   },

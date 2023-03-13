@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
@@ -29,9 +28,5 @@ export default defineConfig({
       usePolling: true,
     },
     port: parseInt(process.env.PORT)
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-  },
+  }
 })
