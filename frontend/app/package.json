@@ -9,7 +9,8 @@
     "build": "npx vite build",
     "dev": "npx vite",
     "preview": "npx vite preview",
-    "test": "npx vitest"
+    "test": "npx vitest",
+    "prettier": "npx prettier --write src/**/*.vue"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",
@@ -40,6 +41,7 @@
     "eslint": "^8.36.0",
     "eslint-plugin-vue": "^9.9.0",
     "jsdom": "^21.1.1",
+    "prettier": "2.8.4",
     "typescript": "^4.6.4",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
