@@ -7,16 +7,20 @@ export default defineConfig({
     Vue(),
     vuetify({ autoImport: true })
 
-],
-css: {
+  ],
+  css: {
     preprocessorOptions: {
-        scss: {
-          additionalData: `@import "./src/assets/index.scss";`,
-        },
-      }
-},
+      scss: {
+        additionalData: `@import "./src/assets/index.scss";`,
+      },
+    }
+  },
   test: {
     globals: true,
+    setupFiles: "./test/setup.ts",
+    deps: {
+      inline: ['vuetify']
+    },
     environment: "jsdom",
   },
 });

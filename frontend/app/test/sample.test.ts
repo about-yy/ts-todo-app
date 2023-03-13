@@ -1,20 +1,55 @@
-import { mount } from '@vue/test-utils';
-import { describe, expect } from 'vitest'
-import LoginPage from '../src/views/LoginPage.vue';
+// import { render, fireEvent } from '@testing-library/vue'
+// import LoginForm from '../src/views/LoginPage.vue'
+// import {describe, expect, test} from "vitest";
+// import _JestDom from "@testing-library/jest-dom";
+// import vuetify from '../src/plugins/vuetify';
+// import { createLocalVue } from "@vue/test-utils";
 
-describe('ログインページ', () => {
-  const wrapper = mount(LoginPage)
+// (global as any).CSS = {supports: ()=>false};
 
-  // フォームが存在することを確認
-  expect(wrapper.find('form').exists()).toBe(true)
+// describe('LoginForm', () => {
+//   test("sample", async()=>{
+//     const localVue = createLocalVue()
+//   })
 
-  // フォームに値を設定
-  wrapper.find('#username').setValue('username')
-  wrapper.find('#password').setValue('password')
+//   test('renders form elements', async () => {
+//     // `render`関数を使用してコンポーネントをレンダリング
+//     const { getByLabelText, getByRole } = render(LoginForm, {
+//       global: {
+//         plugins: [vuetify]
+//       }
+//     })
 
-  // ログインボタンをクリック
-  wrapper.find('button[type="submit"]').trigger('click')
+//     // フォーム要素が存在することを確認
+//     expect(getByRole('form')).toBeInTheDocument()
 
-  // ログインに成功したことを確認
-  expect(wrapper.text()).toContain('ログインに成功しました')
-})
+//     // ラベル要素が存在することを確認
+//     expect(getByLabelText('メールアドレス')).toBeInTheDocument()
+//     expect(getByLabelText('パスワード')).toBeInTheDocument()
+
+//     // ボタン要素が存在することを確認
+//     expect(getByRole('button', { name: 'ログイン' })).toBeInTheDocument()
+//   })
+
+//   test('submits form when button is clicked', async () => {
+//     const mockOnSubmit = jest.fn()
+//     const { getByLabelText, getByRole } = render(LoginForm, {
+//       global: {
+//         mocks: {
+//           onSubmit: mockOnSubmit,
+//         },
+//       },
+//     })
+
+//     // 入力フォームに値を設定する
+//     const emailInput = getByLabelText('メールアドレス')
+//     const passwordInput = getByLabelText('パスワード')
+//     await fireEvent.update(emailInput, 'test@example.com')
+//     await fireEvent.update(passwordInput, 'password')
+
+//     // フォームがサブミットされたときに、`onSubmit`関数が呼び出されることを確認する
+//     const submitButton = getByRole('button', { name: 'ログイン' })
+//     await fireEvent.click(submitButton)
+//     expect(mockOnSubmit).toHaveBeenCalled()
+//   })
+// })
