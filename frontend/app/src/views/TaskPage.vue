@@ -15,7 +15,8 @@
         />
       </template>
     </div>
-    <div class="task_add_form">
+    
+    <form class="task_add_form">
       <v-text-field
         v-model="taskTitle"
         class="input-task_add"
@@ -43,7 +44,7 @@
           </v-btn>
         </div>
       </v-text-field>
-    </div>
+    </form>
   </div>
 </template>
 <script lang="ts">
