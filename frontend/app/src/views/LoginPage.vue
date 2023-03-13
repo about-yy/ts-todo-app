@@ -138,7 +138,6 @@ export default defineComponent({
 
   label {
     margin-bottom: 8px;
-    font-weight: 600;
     font-size: 14px;
     color: $text-color;
     display: block;
@@ -202,7 +201,6 @@ export default defineComponent({
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
-
     &:hover,
     &:focus {
       background-color: lighten($color: $primary-color, $amount: 10);
