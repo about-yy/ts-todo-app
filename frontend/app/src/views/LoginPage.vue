@@ -113,7 +113,7 @@ export default defineComponent({
     margin-bottom: 8px;
     font-weight: 600;
     font-size: 14px;
-    color: #3c4858;
+    color: $text-color;
     display: block;
   }
 
@@ -123,7 +123,7 @@ export default defineComponent({
     border-radius: 4px;
     border: 1px solid #d2d2d2;
     font-size: 1.2rem;
-    color: #3c4858;
+    color: $text-color;
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -131,7 +131,7 @@ export default defineComponent({
 
     &:focus {
       outline: none;
-      border-color: #4d90fe;
+      border-color: $primary-color;
       box-shadow: 0 0 0 2px rgba(77, 144, 254, 0.2);
     }
   }
@@ -139,6 +139,7 @@ export default defineComponent({
 
 .login-action {
   margin-top: 16px;
+  margin: auto;
 
   .login-button.material {
     display: block;
@@ -149,13 +150,13 @@ export default defineComponent({
     font-size: 16px;
     font-weight: bold;
     text-align: center;
-    color: #fff;
-    background-color: #2196f3;
+    color: $button-text-color;
+    background-color: $primary-color;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
       0 3px 1px -2px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     &:hover {
-      background-color: #0c7cd5;
+      background-color: lighten($primary-color, 10);
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
         0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 8px -2px rgba(0, 0, 0, 0.2);
       cursor: pointer;
@@ -167,16 +168,22 @@ export default defineComponent({
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #3498db;
-    color: #fff;
+    background-color: $primary-color;
+    color: $button-text-color;
     font-size: 16px;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 
-    &:hover {
-      background-color: #2980b9;
+    &:hover,
+    &:focus {
+      background-color: lighten($color: $primary-color, $amount: 10);
+      outline: none;
+    }
+
+    &:active {
+      background-color: darken($color: $primary-color, $amount: 10);
     }
   }
 }

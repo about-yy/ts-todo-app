@@ -1,10 +1,24 @@
-$color_bgColor: #FFFFFF;
-$color_primary: #E06A3B;
-$color_primary-lighten: #EEAF96;
-$color_primary-flash: #F9DFD5;
-$color_secondary: #1F91BE;
-$color_secondary-lighten: #6CBAD8;
-$color_secondary-flash: #CAE7F2;
-$color_text: #241914;
-$color_text-lighten: #563A30;
-$color_text-flash: #895D4C;
+// Primary
+$primary-color: #3f51b5;
+$primary-light-color: #757de8;
+$primary-dark-color: #2c3e50;
+
+// Secondary
+$secondary-color: #03a9f4;
+$secondary-light-color: #67daff;
+$secondary-dark-color: #0288d1;
+
+// Accent
+$accent-color: #ff4081;
+$accent-light-color: #ff80ab;
+$accent-dark-color: #f50057;
+
+// Background
+$background-color: #f5f5f5;
+$card-color: #ffffff;
+
+// Text
+$text-color: #212121;
+$secondary-text-color: #757575;
+$disabled-text-color: #bdbdbd;
+$button-text-color: #ffffff;
