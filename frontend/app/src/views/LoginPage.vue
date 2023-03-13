@@ -1,25 +1,67 @@
 <template>
-    <v-card class="login-form" title="ログイン | TS TODO APP">
-        <div class="navigation">
-            <router-link to="/">ユーザ登録</router-link> / <router-link :is="'span'" to="/login">ログイン</router-link>
-         </div>
-        <v-container>
-            <ErrorMessage v-if="loginFormState.isFailed" message="メールアドレス、またはパスワードに誤りがあります。入力内容を確認してください。"></ErrorMessage>
-            <v-form v-model="loginFormState.form" @submit.prevent="onSubmit">
-                <v-text-field label="メールアドレス" v-model="loginForm.email" id="email" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
-                <v-text-field label="パスワード" v-model="loginForm.password" id="password" :readonly="loginFormState.loading" :rules="[requiredValidation]" clearable type="password" class="text-input" ></v-text-field>
-                <v-btn type="submit" class="submit-btn" :loading="loginFormState.loading" :disabled="!loginFormState.form" variant="flat" color="primary" >ログイン</v-btn>
-            </v-form>
-        </v-container>
-    </v-card>
+  <v-card
+    class="login-form"
+    title="ログイン | TS TODO APP"
+  >
+    <div class="navigation">
+      <router-link to="/">
+        ユーザ登録
+      </router-link> / <router-link
+        :is="'span'"
+        to="/login"
+      >
+        ログイン
+      </router-link>
+    </div>
+    <v-container>
+      <ErrorMessage
+        v-if="loginFormState.isFailed"
+        message="メールアドレス、またはパスワードに誤りがあります。入力内容を確認してください。"
+      />
+      <v-form
+        v-model="loginFormState.form"
+        @submit.prevent="onSubmit"
+      >
+        <v-text-field
+          id="email"
+          v-model="loginForm.email"
+          label="メールアドレス"
+          :readonly="loginFormState.loading"
+          :rules="[requiredValidation]"
+          clearable
+          class="text-input"
+        />
+        <v-text-field
+          id="password"
+          v-model="loginForm.password"
+          label="パスワード"
+          :readonly="loginFormState.loading"
+          :rules="[requiredValidation]"
+          clearable
+          type="password"
+          class="text-input"
+        />
+        <v-btn
+          type="submit"
+          class="submit-btn"
+          :loading="loginFormState.loading"
+          :disabled="!loginFormState.form"
+          variant="flat"
+          color="primary"
+        >
+          ログイン
+        </v-btn>
+      </v-form>
+    </v-container>
+  </v-card>
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router';
 import AxiosUtil from '../utils/AxiosUtil';
 import ErrorMessage from '../components/ErrorMessage.vue';
-import { useStore } from '../store';
-import * as ActionTypes from '../store/ActionTypes';
+import { useStore } from '../app/store';
+import * as ActionTypes from '../app/ActionTypes';
 
 export default defineComponent({
     components: {
@@ -43,11 +85,11 @@ export default defineComponent({
             loginFormState.loading = true;
 
             login(loginForm.email, loginForm.password)
-                .then((res)=>{
+                .then((_res)=>{
                     loginFormState.isFailed = false
                     moveToTaskPage();
                 })
-                .catch((e)=>{loginFormState.isFailed = true})
+                .catch((_e)=>{loginFormState.isFailed = true})
                 .finally(()=>{loginFormState.loading = false});
         
         }
@@ -77,7 +119,7 @@ export default defineComponent({
     },
 })
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .login-form {
     margin: 20px;
     padding: 40px;

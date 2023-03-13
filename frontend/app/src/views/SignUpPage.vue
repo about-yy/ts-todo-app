@@ -1,27 +1,86 @@
 <template>
-    <v-card class="signup-form" title="ユーザ登録 | TS TODO APP">
-        <div class="navigation">
-            <router-link to="/">ユーザ登録</router-link> / <router-link :is="'span'" to="/login">ログイン</router-link>
-         </div>
-        <v-container>
-            <ErrorMessage v-if="signupFormState.isFailed" message="ユーザ登録に失敗しました。入力内容を確認してください。"></ErrorMessage>
-            <v-form v-model="signupFormState.form" @submit.prevent="onSubmit">
-                <v-text-field label="メールアドレス" v-model="signupForm.email" id="email" :readonly="signupFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
-                <v-text-field label="ユーザー名" v-model="signupForm.username" id="username" :readonly="signupFormState.loading" :rules="[requiredValidation]" clearable class="text-input" ></v-text-field>
-                <v-text-field label="パスワード" v-model="signupForm.password" id="password" :readonly="signupFormState.loading" :rules="[requiredValidation]" clearable type="password" class="text-input" ></v-text-field>
-                <v-text-field label="パスワード（確認用）" v-model="signupForm.password_confirm" id="password_confirm" :readonly="signupFormState.loading" :rules="[requiredValidation]" clearable type="password" class="text-input" ></v-text-field>
-                <v-btn type="submit" class="submit-btn" :loading="signupFormState.loading" :disabled="!signupFormState.form" variant="flat" color="primary" >登録</v-btn>
-            </v-form>
-        </v-container>
-    </v-card>
+  <v-card
+    class="signup-form"
+    title="ユーザ登録 | TS TODO APP"
+  >
+    <div class="navigation">
+      <router-link to="/">
+        ユーザ登録
+      </router-link> / <router-link
+        :is="'span'"
+        to="/login"
+      >
+        ログイン
+      </router-link>
+    </div>
+    <v-container>
+      <ErrorMessage
+        v-if="signupFormState.isFailed"
+        message="ユーザ登録に失敗しました。入力内容を確認してください。"
+      />
+      <v-form
+        v-model="signupFormState.form"
+        @submit.prevent="onSubmit"
+      >
+        <v-text-field
+          id="email"
+          v-model="signupForm.email"
+          label="メールアドレス"
+          :readonly="signupFormState.loading"
+          :rules="[requiredValidation]"
+          clearable
+          class="text-input"
+        />
+        <v-text-field
+          id="username"
+          v-model="signupForm.username"
+          label="ユーザー名"
+          :readonly="signupFormState.loading"
+          :rules="[requiredValidation]"
+          clearable
+          class="text-input"
+        />
+        <v-text-field
+          id="password"
+          v-model="signupForm.password"
+          label="パスワード"
+          :readonly="signupFormState.loading"
+          :rules="[requiredValidation]"
+          clearable
+          type="password"
+          class="text-input"
+        />
+        <v-text-field
+          id="password_confirm"
+          v-model="signupForm.password_confirm"
+          label="パスワード（確認用）"
+          :readonly="signupFormState.loading"
+          :rules="[requiredValidation]"
+          clearable
+          type="password"
+          class="text-input"
+        />
+        <v-btn
+          type="submit"
+          class="submit-btn"
+          :loading="signupFormState.loading"
+          :disabled="!signupFormState.form"
+          variant="flat"
+          color="primary"
+        >
+          登録
+        </v-btn>
+      </v-form>
+    </v-container>
+  </v-card>
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router';
 import AxiosUtil from '../utils/AxiosUtil';
 import ErrorMessage from '../components/ErrorMessage.vue';
-import { useStore } from '../store';
-import * as ActionTypes from '../store/ActionTypes';
+import { useStore } from '../app/store';
+import * as ActionTypes from '../app/ActionTypes';
 
 export default defineComponent({
     components: {
@@ -48,12 +107,12 @@ export default defineComponent({
             signupFormState.loading = true;
 
             signup(signupForm.email, signupForm.username, signupForm.password)
-                .then((res)=>login(signupForm.email, signupForm.password))
-                .then((res)=>{
+                .then((_res)=>login(signupForm.email, signupForm.password))
+                .then((_res)=>{
                     signupFormState.isFailed = false
                     moveToTaskPage();
                 })
-                .catch((e)=>{signupFormState.isFailed = true})
+                .catch((_e)=>{signupFormState.isFailed = true})
                 .finally(()=>{signupFormState.loading = false});
         
         }

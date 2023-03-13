@@ -38,11 +38,17 @@ export default class App {
         const exposedHeaders = [
             "authorization",
             "content-type"
-        ]
+        ];
+        const allowHeaders = [
+            "authorization",
+            "content-type"
+        ];
+        
         const options: cors.CorsOptions = {
             origin: allowOrigins,
-            exposedHeaders: exposedHeaders
-        }
+            exposedHeaders: exposedHeaders,
+            allowedHeaders: allowHeaders
+    }
         this._express.use(cors(options));
     }
 
