@@ -2,15 +2,38 @@
   <div class="login-container">
     <div class="login-card">
       <h2 class="login-card-title">ログイン | TS TODO APP</h2>
-      <form class="login-form">
+      <div class="navigation">
+        <router-link to="/"> ユーザ登録 </router-link> /
+        <router-link :is="'span'" to="/login"> ログイン </router-link>
+      </div>
+      <ErrorMessage
+        v-if="loginFormState.isFailed"
+        message="メールアドレス、またはパスワードに誤りがあります。入力内容を確認してください。"
+      />
+      <form class="login-form" @submit.prevent="onSubmit">
         <div class="login-field">
           <label for="email">メールアドレス</label>
-          <input id="email" type="email" name="email" />
+          <input
+            id="email"
+            v-model="loginForm.email"
+            :readonly="loginFormState.loading"
+            required
+            type="email"
+            name="email"
+          />
         </div>
 
         <div class="login-field">
           <label for="password">パスワード</label>
-          <input id="password" type="password" name="password" />
+          <input
+            id="password"
+            v-model="loginForm.password"
+            :readonly="loginFormState.loading"
+            required
+            type="password"
+            name="password"
+            placeholder=""
+          />
         </div>
 
         <div class="login-action">
@@ -23,12 +46,15 @@
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
-import AxiosUtil from "../utils/AxiosUtil";
 import { useStore } from "../app/store";
 import * as ActionTypes from "../app/ActionTypes";
+import AxiosUtil from "../utils/AxiosUtil";
+import ErrorMessage from "../components/ErrorMessage.vue";
 
 export default defineComponent({
-  components: {},
+  components: {
+    ErrorMessage,
+  },
   setup() {
     const router = useRouter();
     const store = useStore();
@@ -43,7 +69,7 @@ export default defineComponent({
     });
 
     const onSubmit = async () => {
-      if (!loginFormState.form) return;
+      // if (!loginFormState.form) return;
       loginFormState.loading = true;
 
       login(loginForm.email, loginForm.password)
@@ -93,6 +119,7 @@ export default defineComponent({
 }
 
 .login-card {
+  position: relative;
   border-radius: 1em;
   border: #ddd solid 1px;
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
@@ -186,5 +213,12 @@ export default defineComponent({
       background-color: darken($color: $primary-color, $amount: 10);
     }
   }
+}
+
+.navigation {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-block;
 }
 </style>
