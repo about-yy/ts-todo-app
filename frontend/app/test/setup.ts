@@ -1,1 +1,0 @@
-export default (global as any).CSS = { supports: () => false };

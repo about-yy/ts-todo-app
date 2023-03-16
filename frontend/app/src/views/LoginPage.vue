@@ -10,7 +10,7 @@
         v-if="loginFormState.isFailed"
         message="メールアドレス、またはパスワードに誤りがあります。入力内容を確認してください。"
       />
-      <form class="login-form" @submit.prevent="onSubmit">
+      <form class="login-form" role="form" @submit.prevent="onSubmit">
         <div class="login-field">
           <label for="email">メールアドレス</label>
           <input
