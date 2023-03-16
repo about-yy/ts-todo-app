@@ -27,6 +27,11 @@ describe("LoginForm", () => {
 
     // フォームが実行されたことを確認
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      `${process.env.VITE_BACKEND_DOMAIN}/auth/login`,
+      { email: "test@example.com", password: "password" },
+      undefined
+    );
   });
 
   it("フォームが空の場合、ログインできない", async () => {
@@ -38,7 +43,11 @@ describe("LoginForm", () => {
 
     // フォームが実行されたことを確認
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
-
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      `${process.env.VITE_BACKEND_DOMAIN}/auth/login`,
+      { email: "", password: "" },
+      undefined
+    );
     // エラーメッセージが表示されることを確認
     expect(
       await findByText(
@@ -62,7 +71,11 @@ describe("LoginForm", () => {
 
     // フォームが実行されたことを確認
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
-
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      `${process.env.VITE_BACKEND_DOMAIN}/auth/login`,
+      { email: "example.com", password: "password" },
+      undefined
+    );
     // エラーメッセージが表示されることを確認
     expect(
       await findByText(
