@@ -23,9 +23,22 @@ describe("LoginForm", () => {
       const { getByLabelText } = render(SignUpPageVue);
       expect(getByLabelText("パスワード（確認用）")).toBeTruthy();
     });
-    // it("ユーザ登録ボタンが表示されている");
-    // it("ユーザ登録ページへのリンクが表示されている");
-    // it("ログインページへのリンクが表示されている");
+    it("ユーザ登録ボタンが表示されている", async () => {
+      const screen = render(SignUpPageVue);
+      expect(screen.getByRole("button", { name: "ユーザ登録" })).toBeTruthy();
+    });
+    it("ユーザ登録ページへのリンクが表示されている", async () => {
+      const screen = render(SignUpPageVue);
+      expect(
+        screen.getByText("ユーザ登録", { selector: "router-link" })
+      ).toBeTruthy();
+    });
+    it("ログインページへのリンクが表示されている", async () => {
+      const screen = render(SignUpPageVue);
+      expect(
+        screen.getByText("ログイン", { selector: "router-link" })
+      ).toBeTruthy();
+    });
   });
 
   // describe("ユーザ登録できるパターン", async () => {
