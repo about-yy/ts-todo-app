@@ -1,8 +1,8 @@
 import { render, fireEvent } from "@testing-library/vue";
-import { expect, Mocked, vi } from "vitest";
 import LoginForm from "../src/views/LoginPage.vue";
 import "@testing-library/jest-dom";
 import axios from "axios";
+import { Mocked } from "vitest";
 vi.mock("axios");
 
 const mockedAxios = axios as Mocked<typeof axios>;
