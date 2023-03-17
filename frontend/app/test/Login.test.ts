@@ -6,7 +6,7 @@ vi.mock("axios");
 
 const mockedAxios = axios as Mocked<typeof axios>;
 
-describe("LoginForm", () => {
+describe("ログインページ", () => {
   beforeEach(() => {
     mockedAxios.post.mockReset();
   });
