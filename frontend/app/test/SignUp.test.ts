@@ -1,7 +1,7 @@
 import { render } from "@testing-library/vue";
 import SignUpPageVue from "../src/views/SignUpPage.vue";
 
-describe("LoginForm", () => {
+describe("ユーザ登録ページ", () => {
   describe("画面表示", async () => {
     it("ユーザ登録フォームが表示されている", async () => {
       const { getByRole } = render(SignUpPageVue);
