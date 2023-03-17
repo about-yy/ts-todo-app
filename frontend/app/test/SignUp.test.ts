@@ -3,7 +3,7 @@ import SignUpPageVue from "../src/views/SignUpPage.vue";
 
 describe("LoginForm", () => {
   describe("画面表示", async () => {
-    it("会員登録フォームが表示されている", async () => {
+    it("ユーザ登録フォームが表示されている", async () => {
       const { getByRole } = render(SignUpPageVue);
       expect(getByRole("form")).toBeTruthy();
     });
@@ -23,19 +23,19 @@ describe("LoginForm", () => {
       const { getByLabelText } = render(SignUpPageVue);
       expect(getByLabelText("パスワード（確認用）")).toBeTruthy();
     });
-    // it("会員登録ボタンが表示されている");
-    // it("会員登録ページへのリンクが表示されている");
+    // it("ユーザ登録ボタンが表示されている");
+    // it("ユーザ登録ページへのリンクが表示されている");
     // it("ログインページへのリンクが表示されている");
   });
 
-  // describe("会員登録できるパターン", async () => {
+  // describe("ユーザ登録できるパターン", async () => {
   //   const screen = render(SignUpPageVue);
   //   it("全ての入力欄が正常");
   // });
 
-  // describe("会員登録できないパターン", async () => {
-  //   it("値が空の場合、会員登録できない");
+  // describe("ユーザ登録できないパターン", async () => {
+  //   it("値が空の場合、ユーザ登録できない");
   //   it("確認用パスワードが異なる場合、APIが実行されない");
-  //   it("不正な値が入力されている場合、会員登録できない");
+  //   it("不正な値が入力されている場合、ユーザ登録できない");
   // });
 });

@@ -27,7 +27,7 @@ describe("LoginForm", () => {
       const screen = render(LoginForm);
       expect(screen.getByRole("button", { name: "ログイン" })).toBeTruthy();
     });
-    it("会員登録ページへのリンクが表示されている", async () => {
+    it("ユーザ登録ページへのリンクが表示されている", async () => {
       const screen = render(LoginForm);
       expect(
         screen.getByText("ユーザ登録", { selector: "router-link" })
