@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/vue";
-import LoginForm from "../src/views/LoginPage.vue";
+import LoginPage from "../src/views/LoginPage.vue";
 import axios from "axios";
 import { Mocked } from "vitest";
 vi.mock("axios");
@@ -13,29 +13,29 @@ describe("LoginForm", () => {
 
   describe("画面表示", async () => {
     it("ログインフォームが表示されている", async () => {
-      const screen = render(LoginForm);
+      const screen = render(LoginPage);
       expect(screen.getByRole("form")).toBeTruthy();
     });
     it("メールアドレスの入力欄が表示されている", async () => {
-      const screen = render(LoginForm);
+      const screen = render(LoginPage);
       expect(screen.getByLabelText("メールアドレス")).toBeTruthy();
     });
     it("パスワードの入力欄が表示されている", async () => {
-      const screen = render(LoginForm);
+      const screen = render(LoginPage);
       expect(screen.getByLabelText("パスワード")).toBeTruthy();
     });
     it("ログインボタンが表示されている", async () => {
-      const screen = render(LoginForm);
+      const screen = render(LoginPage);
       expect(screen.getByRole("button", { name: "ログイン" })).toBeTruthy();
     });
     it("ユーザ登録ページへのリンクが表示されている", async () => {
-      const screen = render(LoginForm);
+      const screen = render(LoginPage);
       expect(
         screen.getByText("ユーザ登録", { selector: "router-link" })
       ).toBeTruthy();
     });
     it("ログインページへのリンクが表示されている", async () => {
-      const screen = render(LoginForm);
+      const screen = render(LoginPage);
       expect(
         screen.getByText("ログイン", { selector: "router-link" })
       ).toBeTruthy();
@@ -44,7 +44,7 @@ describe("LoginForm", () => {
 
   describe("ログインできるパターン", async () => {
     it("ログインできる", async () => {
-      const { getByLabelText, getByRole } = render(LoginForm);
+      const { getByLabelText, getByRole } = render(LoginPage);
 
       // メールアドレスとパスワードを入力
       const emailInput = getByLabelText("メールアドレス");
@@ -68,7 +68,7 @@ describe("LoginForm", () => {
 
   describe("ログインできないパターン", async () => {
     it("フォームが空の場合、ログインできない", async () => {
-      const { getByRole, findByText } = render(LoginForm);
+      const { getByRole, findByText } = render(LoginPage);
 
       // フォームを送信
       const form = getByRole("form");
@@ -90,7 +90,7 @@ describe("LoginForm", () => {
     });
 
     it("フォームに不正な値が入力されている場合、ログインできない", async () => {
-      const { getByLabelText, getByRole, findByText } = render(LoginForm);
+      const { getByLabelText, getByRole, findByText } = render(LoginPage);
 
       // メールアドレスとパスワードを入力
       const emailInput = getByLabelText("メールアドレス");
