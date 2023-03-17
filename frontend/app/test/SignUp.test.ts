@@ -1,5 +1,10 @@
-import { render } from "@testing-library/vue";
+import { fireEvent, render } from "@testing-library/vue";
+import axios from "axios";
+import { Mocked } from "vitest";
 import SignUpPageVue from "../src/views/SignUpPage.vue";
+
+const mockedAxios = axios as Mocked<typeof axios>;
+vi.mock("axios");
 
 describe("ユーザ登録ページ", () => {
   describe("画面表示", async () => {
@@ -41,10 +46,39 @@ describe("ユーザ登録ページ", () => {
     });
   });
 
-  // describe("ユーザ登録できるパターン", async () => {
-  //   const screen = render(SignUpPageVue);
-  //   it("全ての入力欄が正常");
-  // });
+  describe("ユーザ登録できるパターン", async () => {
+    it("全ての入力欄が正常", async () => {
+      const screen = render(SignUpPageVue);
+      // メールアドレスとパスワードを入力
+      const emailInput = screen.getByLabelText("メールアドレス");
+      const usernameInput = screen.getByLabelText("ユーザー名");
+      const passwordInput = screen.getByLabelText("パスワード");
+      const passwordCheckInput = screen.getByLabelText("パスワード（確認用）");
+      await fireEvent.update(emailInput, "test@example.com");
+      await fireEvent.update(usernameInput, "test");
+      await fireEvent.update(passwordInput, "test");
+      await fireEvent.update(passwordCheckInput, "test");
+      expect(emailInput).toHaveValue("test@example.com");
+      expect(usernameInput).toHaveValue("test");
+      expect(passwordInput).toHaveValue("test");
+      expect(passwordCheckInput).toHaveValue("test");
+      // フォームを送信
+      const form = screen.getByRole("form");
+      await fireEvent.submit(form);
+
+      // フォームが実行されたことを確認
+      expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+      expect(mockedAxios.post).toHaveBeenCalledWith(
+        `${process.env.VITE_BACKEND_DOMAIN}/user/regist`,
+        {
+          email: "test@example.com",
+          username: "test",
+          password: "test",
+        },
+        undefined
+      );
+    });
+  });
 
   // describe("ユーザ登録できないパターン", async () => {
   //   it("値が空の場合、ユーザ登録できない");

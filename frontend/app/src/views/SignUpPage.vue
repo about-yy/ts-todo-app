@@ -48,7 +48,7 @@
         </div>
 
         <div class="signup-field">
-          <label for="password">パスワード（確認用）</label>
+          <label for="password_confirm">パスワード（確認用）</label>
           <input
             id="password_confirm"
             v-model="signupForm.password_confirm"
