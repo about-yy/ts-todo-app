@@ -90,12 +90,10 @@ export default defineComponent({
     });
     const signupFormState = reactive({
       loading: false,
-      form: false,
       isFailed: false,
     });
 
     const onSubmit = async () => {
-      if (!signupFormState.form) return;
       if (signupForm.password !== signupForm.password_confirm) return;
       signupFormState.loading = true;
 
