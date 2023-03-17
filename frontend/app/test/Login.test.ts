@@ -27,8 +27,18 @@ describe("LoginForm", () => {
       const screen = render(LoginForm);
       expect(screen.getByRole("button", { name: "ログイン" })).toBeTruthy();
     });
-    it("会員登録ページへのリンクが表示されている");
-    it("ログインページへのリンクが表示されている");
+    it("会員登録ページへのリンクが表示されている", async () => {
+      const screen = render(LoginForm);
+      expect(
+        screen.getByText("ユーザ登録", { selector: "router-link" })
+      ).toBeTruthy();
+    });
+    it("ログインページへのリンクが表示されている", async () => {
+      const screen = render(LoginForm);
+      expect(
+        screen.getByText("ログイン", { selector: "router-link" })
+      ).toBeTruthy();
+    });
   });
   it("ログインできる", async () => {
     const { getByLabelText, getByRole } = render(LoginForm);
