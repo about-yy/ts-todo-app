@@ -8,7 +8,7 @@
       </div>
       <ErrorMessage
         v-if="signupFormState.isFailed"
-        message="メールアドレス、またはパスワードに誤りがあります。入力内容を確認してください。"
+        message="ユーザ登録に失敗しました。入力内容を確認してください。"
       />
       <form class="signup-form" role="form" @submit.prevent="onSubmit">
         <div class="signup-field">
