@@ -25,7 +25,7 @@ describe("LoginForm", () => {
     });
     it("ユーザ登録ボタンが表示されている", async () => {
       const screen = render(SignUpPageVue);
-      expect(screen.getByRole("button", { name: "ユーザ登録" })).toBeTruthy();
+      expect(screen.getByRole("button", { name: "登録" })).toBeTruthy();
     });
     it("ユーザ登録ページへのリンクが表示されている", async () => {
       const screen = render(SignUpPageVue);

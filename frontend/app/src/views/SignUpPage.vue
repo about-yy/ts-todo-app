@@ -61,7 +61,7 @@
         </div>
 
         <div class="signup-action">
-          <button class="signup-button flat" type="submit">ログイン</button>
+          <button class="signup-button flat" type="submit">登録</button>
         </div>
       </form>
     </div>
