@@ -10,7 +10,26 @@ describe("LoginForm", () => {
   beforeEach(() => {
     mockedAxios.post.mockReset();
   });
-
+  describe("画面表示", async () => {
+    it("ログインフォームが表示されている", async () => {
+      const screen = render(LoginForm);
+      expect(screen.getByRole("form")).toBeTruthy();
+    });
+    it("メールアドレスの入力欄が表示されている", async () => {
+      const screen = render(LoginForm);
+      expect(screen.getByLabelText("メールアドレス")).toBeTruthy();
+    });
+    it("パスワードの入力欄が表示されている", async () => {
+      const screen = render(LoginForm);
+      expect(screen.getByLabelText("パスワード")).toBeTruthy();
+    });
+    it("ログインボタンが表示されている", async () => {
+      const screen = render(LoginForm);
+      expect(screen.getByRole("button", { name: "ログイン" })).toBeTruthy();
+    });
+    it("会員登録ページへのリンクが表示されている");
+    it("ログインページへのリンクが表示されている");
+  });
   it("ログインできる", async () => {
     const { getByLabelText, getByRole } = render(LoginForm);
 
