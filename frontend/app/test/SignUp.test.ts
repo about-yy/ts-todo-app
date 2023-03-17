@@ -7,6 +7,9 @@ const mockedAxios = axios as Mocked<typeof axios>;
 vi.mock("axios");
 
 describe("ユーザ登録ページ", () => {
+  beforeEach(async () => {
+    vi.resetAllMocks();
+  });
   describe("画面表示", async () => {
     it("ユーザ登録フォームが表示されている", async () => {
       const { getByRole } = render(SignUpPageVue);
@@ -49,6 +52,7 @@ describe("ユーザ登録ページ", () => {
   describe("ユーザ登録できるパターン", async () => {
     it("全ての入力欄が正常", async () => {
       const screen = render(SignUpPageVue);
+
       // メールアドレスとパスワードを入力
       const emailInput = screen.getByLabelText("メールアドレス");
       const usernameInput = screen.getByLabelText("ユーザー名");
@@ -77,12 +81,50 @@ describe("ユーザ登録ページ", () => {
         },
         undefined
       );
+      expect(
+        await screen
+          .findByText("ユーザ登録に失敗しました。入力内容を確認してください。")
+          .then(() => true)
+          .catch(() => false)
+      ).eq(false);
     });
   });
 
-  // describe("ユーザ登録できないパターン", async () => {
-  //   it("値が空の場合、ユーザ登録できない");
-  //   it("確認用パスワードが異なる場合、APIが実行されない");
-  //   it("不正な値が入力されている場合、ユーザ登録できない");
-  // });
+  describe("ユーザ登録できないパターン", async () => {
+    it("値が空の場合、ユーザ登録できない", async () => {
+      const screen = render(SignUpPageVue);
+      // メールアドレスとパスワードを入力
+      const emailInput = screen.getByLabelText("メールアドレス");
+      const usernameInput = screen.getByLabelText("ユーザー名");
+      const passwordInput = screen.getByLabelText("パスワード");
+      const passwordCheckInput = screen.getByLabelText("パスワード（確認用）");
+      expect(emailInput).toHaveValue("");
+      expect(usernameInput).toHaveValue("");
+      expect(passwordInput).toHaveValue("");
+      expect(passwordCheckInput).toHaveValue("");
+      // フォームを送信
+      const form = screen.getByRole("form");
+      await fireEvent.submit(form);
+
+      // フォームが実行されたことを確認
+      expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+      expect(mockedAxios.post).toHaveBeenCalledWith(
+        `${process.env.VITE_BACKEND_DOMAIN}/user/regist`,
+        {
+          email: "",
+          username: "",
+          password: "",
+        },
+        undefined
+      );
+      expect(
+        await screen
+          .findByText("ユーザ登録に失敗しました。入力内容を確認してください。")
+          .then(() => true)
+          .catch(() => false)
+      ).eq(true);
+    });
+    it("確認用パスワードが異なる場合、APIが実行されない");
+    it("不正な値が入力されている場合、ユーザ登録できない");
+  });
 });
