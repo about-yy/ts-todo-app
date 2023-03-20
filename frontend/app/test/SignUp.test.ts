@@ -46,6 +46,9 @@ describe("ユーザ登録ページ", () => {
       expect(
         screen.getByText("ログイン", { selector: "router-link" })
       ).toBeTruthy();
+      expect(
+        screen.getByText("ログイン", { selector: "router-link" })
+      ).toHaveAttribute("to", "/login");
     });
   });
 

@@ -4,7 +4,7 @@
       <h2 class="signup-card-title">ログイン | TS TODO APP</h2>
       <div class="navigation">
         <router-link to="/"> ユーザ登録 </router-link> /
-        <router-link :is="'span'" to="/signup"> ログイン </router-link>
+        <router-link :is="'span'" to="/login"> ログイン </router-link>
       </div>
       <ErrorMessage
         v-if="signupFormState.isFailed"
