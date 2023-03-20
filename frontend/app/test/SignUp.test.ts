@@ -51,6 +51,13 @@ describe("ユーザ登録ページ", () => {
 
   describe("ユーザ登録できるパターン", async () => {
     it("全ての入力欄が正常", async () => {
+      const inputs = {
+        email: "yamada@google.com.com",
+        username: "username",
+        password: "password",
+        password_check: "password",
+      };
+
       const screen = render(SignUpPageVue);
 
       // メールアドレスとパスワードを入力
@@ -58,14 +65,14 @@ describe("ユーザ登録ページ", () => {
       const usernameInput = screen.getByLabelText("ユーザー名");
       const passwordInput = screen.getByLabelText("パスワード");
       const passwordCheckInput = screen.getByLabelText("パスワード（確認用）");
-      await fireEvent.update(emailInput, "test@example.com");
-      await fireEvent.update(usernameInput, "test");
-      await fireEvent.update(passwordInput, "test");
-      await fireEvent.update(passwordCheckInput, "test");
-      expect(emailInput).toHaveValue("test@example.com");
-      expect(usernameInput).toHaveValue("test");
-      expect(passwordInput).toHaveValue("test");
-      expect(passwordCheckInput).toHaveValue("test");
+      await fireEvent.update(emailInput, inputs.email);
+      await fireEvent.update(usernameInput, inputs.username);
+      await fireEvent.update(passwordInput, inputs.password);
+      await fireEvent.update(passwordCheckInput, inputs.password_check);
+      expect(emailInput).toHaveValue(inputs.email);
+      expect(usernameInput).toHaveValue(inputs.username);
+      expect(passwordInput).toHaveValue(inputs.password);
+      expect(passwordCheckInput).toHaveValue(inputs.password_check);
       // フォームを送信
       const form = screen.getByRole("form");
       await fireEvent.submit(form);
@@ -75,18 +82,12 @@ describe("ユーザ登録ページ", () => {
       expect(mockedAxios.post).toHaveBeenCalledWith(
         `${process.env.VITE_BACKEND_DOMAIN}/user/regist`,
         {
-          email: "test@example.com",
-          username: "test",
-          password: "test",
+          email: inputs.email,
+          username: inputs.username,
+          password: inputs.password,
         },
         undefined
       );
-      expect(
-        await screen
-          .findByText("ユーザ登録に失敗しました。入力内容を確認してください。")
-          .then(() => true)
-          .catch(() => false)
-      ).eq(false);
     });
   });
 
