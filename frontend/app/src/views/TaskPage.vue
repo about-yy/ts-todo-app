@@ -47,7 +47,7 @@ import { defineComponent, Ref, ref } from "vue";
 import AxiosUtil from "../utils/AxiosUtil";
 import { Task } from "custom-types";
 import TaskItem from "../components/TaskItem.vue";
-import Popper from "vue3-popper";
+import Popper from "vue3-popper/dist/popper.esm";
 import { DatePicker } from "v-calendar";
 
 export default defineComponent({
