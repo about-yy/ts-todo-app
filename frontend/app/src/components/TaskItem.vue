@@ -22,7 +22,7 @@
 import { defineComponent, PropType, ref } from "vue";
 import { Task } from "custom-types";
 import CircleButton from "./CircleButton.vue";
-import Popper from "vue3-popper";
+import Popper from "vue3-popper/dist/popper.esm";
 import { DatePicker } from "v-calendar";
 
 export default defineComponent({
