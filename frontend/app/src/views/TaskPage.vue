@@ -1,17 +1,22 @@
 <template>
   <div class="content">
     <h3 class="title">タスク一覧 | TS TODO APP</h3>
-    <div class="task_list">
-      <template v-for="task in tasks" :key="task">
+    <div class="task_list" role="task_list">
+      <template v-if="tasks.length > 0">
         <TaskItem
+          v-for="task in tasks"
+          :key="task.task_id"
           :task="task"
           @on-complete="() => taskComplete(task)"
           @on-scheduled="() => taskSchedule(task)"
         />
       </template>
+      <template v-else>
+        <p>登録されているタスクはありません。</p>
+      </template>
     </div>
 
-    <form class="task_add_form">
+    <form class="task_add_form" role="task_add_form">
       <input
         id="input-task_title"
         v-model="taskTitle"
@@ -30,6 +35,7 @@
               class="icon task_period"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
+              data-testid="task_add_form-icon"
             >
               <title>calendar</title>
               <path

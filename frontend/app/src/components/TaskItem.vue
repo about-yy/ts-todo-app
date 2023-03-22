@@ -16,6 +16,7 @@
           class="icon task_period mdi-calendar mdi"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
+          role="icon"
         >
           <title>期限を設定する</title>
           <path
