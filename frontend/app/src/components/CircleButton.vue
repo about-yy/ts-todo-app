@@ -1,6 +1,14 @@
 <template>
   <button class="button-circle active" @click="onClick">
-    <v-icon v-if="state.done" size="26px" class="mdi-check"> mdi-check </v-icon>
+    <svg
+      v-if="state.done"
+      class="mdi-check"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <title>check</title>
+      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+    </svg>
   </button>
 </template>
 <script lang="ts">
@@ -37,6 +45,6 @@ export default defineComponent({
 }
 
 .mdi-check {
-  margin: -13px -10px -10px -10px;
+  margin: -2px -5px -5px -5px;
 }
 </style>

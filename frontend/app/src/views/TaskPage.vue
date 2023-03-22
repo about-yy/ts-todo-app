@@ -12,33 +12,43 @@
     </div>
 
     <form class="task_add_form">
-      <v-text-field
+      <input
+        id="input-task_title"
         v-model="taskTitle"
-        class="input-task_add"
-        :class="{ focus: taskTitle.trim() !== '' }"
-        label="タスク名を入力"
-      >
-        <div class="right-content">
-          <Popper>
-            <div class="calendar-container">
-              <v-icon class="icon task_period mdi mdi-calendar" />
-            </div>
-            <template #content>
-              <DatePicker v-model="date" />
-            </template>
-          </Popper>
-          <v-btn
-            class="button-task_submit"
-            type="submit"
-            variant="flat"
-            color="primary"
-            justify="right"
-            @click="taskCreate"
+        class="input-task_title"
+        type="text"
+        name="input-task_title"
+        placeholder="タスク名を入力"
+      />
+      <div class="right-content">
+        <Popper>
+          <div
+            class="calendar-container"
+            :class="{ focus: taskTitle.trim() !== '' }"
           >
-            送信
-          </v-btn>
-        </div>
-      </v-text-field>
+            <svg
+              class="icon task_period"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <title>calendar</title>
+              <path
+                d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"
+              />
+            </svg>
+          </div>
+          <template #content>
+            <DatePicker v-model="date" />
+          </template>
+        </Popper>
+        <button
+          class="button-task_submit flat"
+          type="submit"
+          @click="taskCreate"
+        >
+          送信
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -112,31 +122,78 @@ export default defineComponent({
   margin: 12px 5px;
 }
 
-.input-task_add {
-  width: 80%;
-  margin: auto;
-}
+.task_add_form {
+  position: relative;
+  text-align: center;
 
-.task_add_form .right-content {
-  position: absolute;
-  right: 8px;
-  top: 10px;
-  float: right;
-}
+  .right-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: 5.2em;
+    top: 6px;
+  }
+  .calendar-container {
+    width: 1.7em;
+    height: 1.7em;
+    justify-content: center;
+    align-content: center;
+    line-height: 1em;
+    visibility: hidden;
+    &.focus {
+      visibility: visible;
+    }
 
-.task_add_form .calendar-container {
-  width: 2em;
-  height: 2em;
-  justify-content: center;
-  align-content: center;
-  line-height: 1em;
-  visibility: hidden;
-}
-.input-task_add.focus .calendar-container {
-  visibility: visible;
-}
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
-.task_add_form .calendar-container:hover {
-  cursor: pointer;
+  .input-task_title.focus .calendar-container {
+    visibility: visible;
+  }
+
+  input {
+    width: 80%;
+    padding: 0.5rem;
+    font-size: 1em;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    color: $text-color;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba(77, 144, 254, 0.2);
+    }
+  }
+
+  button.button-task_submit {
+    display: block;
+    // width: 200px;
+    padding: 4px 8px;
+    // font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: $primary-color;
+    color: $button-text-color;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 3px;
+    transition: background-color 0.2s ease-in-out;
+    &:hover,
+    &:focus {
+      background-color: lighten($color: $primary-color, $amount: 10);
+      outline: none;
+    }
+
+    &:active {
+      background-color: darken($color: $primary-color, $amount: 10);
+    }
+  }
 }
 </style>
