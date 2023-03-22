@@ -37,6 +37,7 @@ export default defineComponent({
   border: solid 1px;
   border-radius: 50%;
   opacity: 0.5;
+  background: inherit;
 }
 
 .button-circle:hover {
