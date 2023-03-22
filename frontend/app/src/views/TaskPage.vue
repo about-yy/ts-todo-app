@@ -16,7 +16,11 @@
       </template>
     </div>
 
-    <form class="task_add_form" role="task_add_form">
+    <form
+      class="task_add_form"
+      role="task_add_form"
+      @submit.prevent="taskCreate"
+    >
       <input
         id="input-task_title"
         v-model="taskTitle"
@@ -47,13 +51,7 @@
             <DatePicker v-model="date" />
           </template>
         </Popper>
-        <button
-          class="button-task_submit flat"
-          type="submit"
-          @click="taskCreate"
-        >
-          送信
-        </button>
+        <button class="button-task_submit flat" type="submit">送信</button>
       </div>
     </form>
   </div>
@@ -85,7 +83,7 @@ export default defineComponent({
     const taskCreate = async () => {
       const _result = await AxiosUtil.post("/task/create", {
         title: taskTitle.value,
-        period: new Date().toISOString(),
+        period: new Date(date.value).toISOString(),
       });
       await getTasks();
       taskTitle.value = "";
