@@ -8,9 +8,21 @@
     <label class="task_item-text task_period" :for="`task_${task.task_id}`">
       {{ new Date(task.period).toLocaleDateString() }}
     </label>
+
     <div class="task_item-nav">
       <Popper @close:popper="taskSchedule">
-        <v-icon v-if="hovered" class="icon task_period mdi mdi-calendar" />
+        <svg
+          v-show="hovered"
+          class="icon task_period mdi-calendar mdi"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          role="icon"
+        >
+          <title>期限を設定する</title>
+          <path
+            d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"
+          />
+        </svg>
         <template #content>
           <DatePicker v-model="task.period" />
         </template>
@@ -22,7 +34,7 @@
 import { defineComponent, PropType, ref } from "vue";
 import { Task } from "custom-types";
 import CircleButton from "./CircleButton.vue";
-import Popper from "vue3-popper";
+import Popper from "vue3-popper/dist/popper.esm";
 import { DatePicker } from "v-calendar";
 
 export default defineComponent({
@@ -96,5 +108,9 @@ export default defineComponent({
 
 .task_item-nav *:active {
   opacity: 1;
+}
+
+.icon.mdi-calendar {
+  width: 20px;
 }
 </style>
