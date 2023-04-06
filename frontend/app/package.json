@@ -21,7 +21,7 @@
     "sass": "^1.58.3",
     "sass-loader": "^13.2.0",
     "v-calendar": "^3.0.0-alpha.8",
-    "vite": "^3.0.8",
+    "vite": "^4.2.1",
     "vite-plugin-fonts": "^0.7.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.6",
