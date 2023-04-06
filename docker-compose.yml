@@ -1,25 +1,27 @@
 version: "3.8"
-services: 
-  frontend: 
-    build: 
+services:
+  frontend:
+    build:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
+      - /app/node_modules
       - ./frontend/app/:/app
     environment:
       - HOST=0.0.0.0
       - CHOKIDIR_USEPOLLING=true
       - PORT=3000
     tty: true
-    ports: 
+    ports:
       - "3000:3000"
     command: npm run dev
 
-  backend: 
-    build: 
+  backend:
+    build:
       context: ./backend
       dockerfile: Dockerfile
     volumes:
+      - /app/node_modules
       - ./backend/app/:/app
     tty: true
     env_file:
@@ -27,20 +29,19 @@ services:
     environment:
       - PORT=3001
       - TZ=Asia/Tokyo
-    ports: 
+    ports:
       - "3001:3001"
     command: npm run dev:watch
 
-  mysql: 
+  mysql:
     container_name: mysql
-    build: 
+    build:
       context: ./mysql
       dockerfile: Dockerfile
     tty: true
-    ports: 
+    ports:
       - 3306:3306
     env_file:
       - ./mysql/.env_mysql
     volumes:
       - ./mysql/data:/var/lib/mysql
-    
