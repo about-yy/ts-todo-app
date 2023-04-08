@@ -25,9 +25,13 @@ export default class App {
   }
 
   private setupRoutes() {
-    this._express.use("/auth", new AuthRouter().router);
-    this._express.use("/user", new UserRouter().router);
-    this._express.use("/task", new TaskRouter().router);
+    const authRouter = new AuthRouter();
+    const userRouter = new UserRouter();
+    const taskRouter = new TaskRouter();
+
+    this._express.use("/auth", authRouter.router);
+    this._express.use("/user", userRouter.router);
+    this._express.use("/task", taskRouter.router);
   }
 
   private setupCors() {
