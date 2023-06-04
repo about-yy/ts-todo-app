@@ -17,6 +17,7 @@
     "@vitejs/plugin-vue": "^3.0.3",
     "axios": "^1.3.4",
     "custom-types": "file:../../share/custom-types",
+    "prisma": "^4.15.0",
     "roboto-fontface": "*",
     "sass": "^1.58.3",
     "sass-loader": "^13.2.0",
