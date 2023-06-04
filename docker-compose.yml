@@ -31,7 +31,7 @@ services:
       - TZ=Asia/Tokyo
     ports:
       - "3001:3001"
-    command: npm run dev:watch
+    command: bash -c "npx prisma generate && npm run dev:watch"
 
   mysql:
     container_name: mysql
