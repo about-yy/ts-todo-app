@@ -1,7 +1,7 @@
 <template>
   <div class="signup-container">
     <div class="signup-card">
-      <h2 class="signup-card-title">ログイン | TS TODO APP</h2>
+      <h2 class="signup-card-title">ユーザ登録 | TS TODO APP</h2>
       <div class="navigation">
         <router-link to="/"> ユーザ登録 </router-link> /
         <router-link :is="'span'" to="/login"> ログイン </router-link>
@@ -105,9 +105,6 @@ export default defineComponent({
         })
         .catch((_e) => {
           signupFormState.isFailed = true;
-        })
-        .finally(() => {
-          signupFormState.loading = false;
         });
     };
     const signup = async (
