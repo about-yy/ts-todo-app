@@ -1,3 +1,6 @@
+/**
+ * ログインページのテスト
+ */
 import { render, fireEvent } from "@testing-library/vue";
 import LoginPage from "../src/views/LoginPage.vue";
 import axios from "axios";
@@ -11,6 +14,9 @@ describe("ログインページ", () => {
     mockedAxios.post.mockReset();
   });
 
+  /**
+   * 画面表示のテスト
+   */
   describe("画面表示", async () => {
     it("ログインフォームが表示されている", async () => {
       const screen = render(LoginPage);
@@ -42,6 +48,9 @@ describe("ログインページ", () => {
     });
   });
 
+  /**
+   * 機能テスト
+   */
   describe("ログインできるパターン", async () => {
     it("ログインできる", async () => {
       const { getByLabelText, getByRole } = render(LoginPage);
