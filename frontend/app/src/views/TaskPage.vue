@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <h3 class="title">タスク一覧 | TS TODO APP</h3>
-    <button class="button_logout flat" type="submit">ログアウト</button>
+    <button @click="logout" class="button_logout flat" >ログアウト</button>
   </div>
   <div class="content">
     <div class="task_list" role="task_list">
@@ -66,6 +66,9 @@ import { Task } from "custom-types";
 import TaskItem from "../components/TaskItem.vue";
 import Popper from "vue3-popper/dist/popper.esm";
 import { DatePicker } from "v-calendar";
+import { useRouter } from "vue-router";
+import { useStore } from "../app/store";
+import * as ActionTypes from "../app/ActionTypes";
 
 export default defineComponent({
   components: {
@@ -74,6 +77,8 @@ export default defineComponent({
     DatePicker,
   },
   setup() {
+    const router = useRouter();
+    const store = useStore();
     const taskTitle = ref("");
     const tasks: Ref<Task[]> = ref([]);
     const getTasks = async () => {
@@ -108,6 +113,17 @@ export default defineComponent({
       await getTasks();
     };
 
+    const moveToLoginPage = async () => {
+      router.push({name: "login"})
+    }
+
+    const onLogout = async () => {
+      const _result = await AxiosUtil.post("/auth/logout")
+      await store.dispatch(ActionTypes.DELETE_ACCESS_TOKEN);
+      await moveToLoginPage();
+    }
+
+
     return {
       tasks,
       date,
@@ -115,6 +131,7 @@ export default defineComponent({
       taskCreate,
       taskComplete,
       taskSchedule,
+      logout: onLogout,
     };
   },
 });
