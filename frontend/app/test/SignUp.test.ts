@@ -1,3 +1,6 @@
+/**
+ * ユーザ登録のテスト
+ */
 import { fireEvent, render } from "@testing-library/vue";
 import axios from "axios";
 import { Mocked } from "vitest";
@@ -10,6 +13,10 @@ describe("ユーザ登録ページ", () => {
   beforeEach(async () => {
     vi.resetAllMocks();
   });
+
+  /**
+   * 画面表示
+   */
   describe("画面表示", async () => {
     it("ユーザ登録フォームが表示されている", async () => {
       const { getByRole } = render(SignUpPageVue);
@@ -52,6 +59,9 @@ describe("ユーザ登録ページ", () => {
     });
   });
 
+  /**
+   * 機能テスト
+   */
   describe("ユーザ登録できるパターン", async () => {
     it("全ての入力欄が正常", async () => {
       const inputs = {
