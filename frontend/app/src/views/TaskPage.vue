@@ -1,6 +1,9 @@
 <template>
-  <div class="content">
+  <div class="header">
     <h3 class="title">タスク一覧 | TS TODO APP</h3>
+    <button class="button_logout flat" type="submit">ログアウト</button>
+  </div>
+  <div class="content">
     <div class="task_list" role="task_list">
       <template v-if="tasks.length > 0">
         <TaskItem
@@ -117,9 +120,51 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+.header {
+  position: relative;
+  margin: 20px;
+  padding: 20px 40px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+
+  .title {
+    display: inline-block;
+  }
+
+  .button_logout {
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+
+    display: block;
+    // width: 200px;
+    padding: 4px 8px;
+    // font-size: 16px;
+    border: solid 1px $primary-color;
+    border-radius: 5px;
+    background-color: $button-text-color; // 色を反転
+    color: $primary-color; // 色を反転
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 3px;
+    transition: background-color 0.2s ease-in-out;
+    &:hover,
+    &:focus {
+      background-color: darken($color: $button-text-color, $amount: 10); // 色を反転
+      outline: none;
+    }
+
+    &:active {
+      background-color: lighten($color: $button-text-color, $amount: 10); // 色を反転
+    }
+  }
+}
 .content {
   margin: 20px;
   padding: 20px 40px;
+  margin-top: 1em;
+  padding-top: 0px;
 }
 
 .task_list {
