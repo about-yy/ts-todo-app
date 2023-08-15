@@ -1,6 +1,9 @@
 <template>
-  <div class="content">
+  <div class="header">
     <h3 class="title">タスク一覧 | TS TODO APP</h3>
+    <button @click="logout" class="button_logout flat" >ログアウト</button>
+  </div>
+  <div class="content">
     <div class="task_list" role="task_list">
       <template v-if="tasks.length > 0">
         <TaskItem
@@ -63,6 +66,9 @@ import { Task } from "custom-types";
 import TaskItem from "../components/TaskItem.vue";
 import Popper from "vue3-popper/dist/popper.esm";
 import { DatePicker } from "v-calendar";
+import { useRouter } from "vue-router";
+import { useStore } from "../app/store";
+import * as ActionTypes from "../app/ActionTypes";
 
 export default defineComponent({
   components: {
@@ -71,6 +77,8 @@ export default defineComponent({
     DatePicker,
   },
   setup() {
+    const router = useRouter();
+    const store = useStore();
     const taskTitle = ref("");
     const tasks: Ref<Task[]> = ref([]);
     const getTasks = async () => {
@@ -105,6 +113,17 @@ export default defineComponent({
       await getTasks();
     };
 
+    const moveToLoginPage = async () => {
+      router.push({name: "login"})
+    }
+
+    const onLogout = async () => {
+      const _result = await AxiosUtil.post("/auth/logout")
+      await store.dispatch(ActionTypes.DELETE_ACCESS_TOKEN);
+      await moveToLoginPage();
+    }
+
+
     return {
       tasks,
       date,
@@ -112,14 +131,57 @@ export default defineComponent({
       taskCreate,
       taskComplete,
       taskSchedule,
+      logout: onLogout,
     };
   },
 });
 </script>
 <style lang="scss" scoped>
+.header {
+  position: relative;
+  margin: 20px;
+  padding: 20px 40px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+
+  .title {
+    display: inline-block;
+  }
+
+  .button_logout {
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+
+    display: block;
+    // width: 200px;
+    padding: 4px 8px;
+    // font-size: 16px;
+    border: solid 1px $primary-color;
+    border-radius: 5px;
+    background-color: $button-text-color; // 色を反転
+    color: $primary-color; // 色を反転
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 3px;
+    transition: background-color 0.2s ease-in-out;
+    &:hover,
+    &:focus {
+      background-color: darken($color: $button-text-color, $amount: 10); // 色を反転
+      outline: none;
+    }
+
+    &:active {
+      background-color: lighten($color: $button-text-color, $amount: 10); // 色を反転
+    }
+  }
+}
 .content {
   margin: 20px;
   padding: 20px 40px;
+  margin-top: 1em;
+  padding-top: 0px;
 }
 
 .task_list {
